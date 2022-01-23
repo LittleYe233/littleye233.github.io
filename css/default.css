@@ -11804,10 +11804,10 @@ hr {
 }
 .body_hot_comment .comment-content .card-comment-item img {
   float: left;
-  transition: all 0.5s ease-in;
-  -webkit-transition: all 0.5s ease-in;
-  -moz-transition: all 0.5s ease-in;
-  -o-transition: all 0.5s ease-in;
+  transition: all 0.5s ease;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
 }
 .body_hot_comment .comment-content .card-comment-item img:hover {
   transform: rotate(360deg);
@@ -12342,10 +12342,10 @@ body {
 }
 .friend-card-item img {
   float: left;
-  transition: all 0.5s ease-in;
-  -webkit-transition: all 0.5s ease-in;
-  -moz-transition: all 0.5s ease-in;
-  -o-transition: all 0.5s ease-in;
+  transition: all 0.5s ease;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
 }
 .friend-card-item img:hover {
   transform: rotate(360deg);
@@ -12511,10 +12511,10 @@ body {
 }
 .level img {
   border-radius: 100px;
-  transition: all 0.5s ease-in;
-  -webkit-transition: all 0.5s ease-in;
-  -moz-transition: all 0.5s ease-in;
-  -o-transition: all 0.5s ease-in;
+  transition: all 0.5s ease;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
 }
 .level figure img:hover {
   transform: rotate(360deg);
