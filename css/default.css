@@ -11804,10 +11804,10 @@ hr {
 }
 .body_hot_comment .comment-content .card-comment-item img {
   float: left;
-  transition: all 0.5s ease;
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease-in;
+  -webkit-transition: all 0.5s ease-in;
+  -moz-transition: all 0.5s ease-in;
+  -o-transition: all 0.5s ease-in;
 }
 .body_hot_comment .comment-content .card-comment-item img:hover {
   transform: rotate(360deg);
@@ -11895,9 +11895,6 @@ hr {
 .night {
   color: #c0c0c0 !important;
   background-color: #000;
-}
-.night .aplayer .aplayer-miniswitcher {
-  background: #c0c0c0 !important;
 }
 .night .navbar-highlight {
   background-color: #151313 !important;
@@ -12258,9 +12255,6 @@ hr {
 .aplayer {
   transition: all 0.5s ease-out;
 }
-.aplayer .aplayer-miniswitcher {
-  background: #fff !important;
-}
 body,
 button,
 input,
@@ -12342,10 +12336,10 @@ body {
 }
 .friend-card-item img {
   float: left;
-  transition: all 0.5s ease;
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease-in;
+  -webkit-transition: all 0.5s ease-in;
+  -moz-transition: all 0.5s ease-in;
+  -o-transition: all 0.5s ease-in;
 }
 .friend-card-item img:hover {
   transform: rotate(360deg);
@@ -12511,10 +12505,10 @@ body {
 }
 .level img {
   border-radius: 100px;
-  transition: all 0.5s ease;
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease-in;
+  -webkit-transition: all 0.5s ease-in;
+  -moz-transition: all 0.5s ease-in;
+  -o-transition: all 0.5s ease-in;
 }
 .level figure img:hover {
   transform: rotate(360deg);
