@@ -6,7 +6,7 @@
   <link href="https://blog.imakiseki.cf/atom.xml" rel="self"/>
   
   <link href="https://blog.imakiseki.cf/"/>
-  <updated>2022-07-13T18:14:13.562Z</updated>
+  <updated>2022-07-26T15:38:42.022Z</updated>
   <id>https://blog.imakiseki.cf/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Codeforces 266B: Queue at the School</title>
+    <link href="https://blog.imakiseki.cf/acmoi/codeforces/266b/"/>
+    <id>https://blog.imakiseki.cf/acmoi/codeforces/266b/</id>
+    <published>2022-07-26T14:57:22.000Z</published>
+    <updated>2022-07-26T15:38:42.022Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p><a href="https://codeforces.com/problemset/problem/266/B">Codeforces 266B</a> C++ 一解。</p></blockquote><span id="more"></span><h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>简单的模拟。把 B 想象成箱子，要不断往右侧推。</p><p>需要注意的是，没有正确理解题意的话容易理解成每次让箱子统一右移一格。但实际上，遇到 <code>BBG</code> 的情况，下一秒应该是 <code>BGB</code> 而不是 <code>GBB</code>，因为某一时刻某两个相邻位置的 B 和 G 互换后，就只能考虑其后的位置了。再拿箱子举例，应该想象成连续的箱子无法推动，只能推动箱子“队列”的最末一个。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">// brute force</span></span><br><span class="line"><span class="function">string <span class="title">solve</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> t, string s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> l = s.<span class="built_in">length</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; t; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (j &lt; l - <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (s[j] == <span class="string">&#x27;B&#x27;</span> &amp;&amp; s[j + <span class="number">1</span>] == <span class="string">&#x27;G&#x27;</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                s[j] = <span class="string">&#x27;G&#x27;</span>;</span><br><span class="line">                s[j + <span class="number">1</span>] = <span class="string">&#x27;B&#x27;</span>;</span><br><span class="line">                j += <span class="number">2</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                ++j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, t;</span><br><span class="line">    string s, a;</span><br><span class="line"></span><br><span class="line">    cin &gt;&gt; n &gt;&gt; t;</span><br><span class="line">    cin &gt;&gt; s;</span><br><span class="line"></span><br><span class="line">    a = <span class="built_in">solve</span>(n, t, s);</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; a &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://codeforces.com/problemset/problem/266/B&quot;&gt;Codeforces 266B&lt;/a&gt; C++ 一解。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="essay" scheme="https://blog.imakiseki.cf/categories/essay/"/>
+    
+    
+    <category term="Programming" scheme="https://blog.imakiseki.cf/tags/Programming/"/>
+    
+    <category term="C++" scheme="https://blog.imakiseki.cf/tags/C/"/>
+    
+    <category term="Codeforces" scheme="https://blog.imakiseki.cf/tags/Codeforces/"/>
+    
+    <category term="Solution" scheme="https://blog.imakiseki.cf/tags/Solution/"/>
+    
+  </entry>
   
   <entry>
     <title>【Arch Linux】本地化：简体中文</title>
