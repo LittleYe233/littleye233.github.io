@@ -6,7 +6,7 @@
   <link href="https://blog.imakiseki.cf/atom.xml" rel="self"/>
   
   <link href="https://blog.imakiseki.cf/"/>
-  <updated>2022-07-30T03:56:54.024Z</updated>
+  <updated>2022-07-30T15:53:25.407Z</updated>
   <id>https://blog.imakiseki.cf/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Codeforces 1312B: Bogosort</title>
+    <link href="https://blog.imakiseki.cf/acmoi/codeforces/1312b/"/>
+    <id>https://blog.imakiseki.cf/acmoi/codeforces/1312b/</id>
+    <published>2022-07-30T15:21:16.000Z</published>
+    <updated>2022-07-30T15:53:25.407Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p><a href="https://codeforces.com/problemset/problem/1312/B">Codeforces 1312B</a> C++ 一解.</p></blockquote><span id="more"></span><h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>此题相当于排序数组后使两个有限数列 (一个是数列 ${1,2,\cdots,n}$, 一个是排序后的数组 $a_\mathrm{sorted}$) 的差各不相同. 一个很容易想到的构造方法是对一个单调 (不一定严格) 递减数列与严格单调递增数列求差, 这样得到的差数列的各元素一定各不相同 (且是单调递减的).</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t, n, a[<span class="number">100</span>];</span><br><span class="line"></span><br><span class="line">    cin &gt;&gt; t;</span><br><span class="line">    <span class="keyword">while</span> (t--)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; n;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            cin &gt;&gt; a[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">sort</span>(a, a + n); <span class="comment">// 先递增排列</span></span><br><span class="line">        <span class="keyword">while</span> (n--)</span><br><span class="line">        &#123;</span><br><span class="line">            cout &lt;&lt; a[n] &lt;&lt; <span class="string">&#x27; &#x27;</span>; <span class="comment">// 再倒序输出, 相当于 &quot;构造&quot; 出了递减数列</span></span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://codeforces.com/problemset/problem/1312/B&quot;&gt;Codeforces 1312B&lt;/a&gt; C++ 一解.&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="Essay" scheme="https://blog.imakiseki.cf/categories/Essay/"/>
+    
+    
+    <category term="Programming" scheme="https://blog.imakiseki.cf/tags/Programming/"/>
+    
+    <category term="C++" scheme="https://blog.imakiseki.cf/tags/C/"/>
+    
+    <category term="Codeforces" scheme="https://blog.imakiseki.cf/tags/Codeforces/"/>
+    
+    <category term="Solution" scheme="https://blog.imakiseki.cf/tags/Solution/"/>
+    
+  </entry>
   
   <entry>
     <title>Codeforces 1474B: Different Divisors</title>
