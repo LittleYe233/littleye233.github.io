@@ -6,7 +6,7 @@
   <link href="https://blog.imakiseki.cf/atom.xml" rel="self"/>
   
   <link href="https://blog.imakiseki.cf/"/>
-  <updated>2022-07-30T15:53:25.407Z</updated>
+  <updated>2022-07-30T16:44:38.999Z</updated>
   <id>https://blog.imakiseki.cf/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Codeforces 1419D1: Sage&#39;s Birthday (easy version)</title>
+    <link href="https://blog.imakiseki.cf/acmoi/codeforces/1419d1/"/>
+    <id>https://blog.imakiseki.cf/acmoi/codeforces/1419d1/</id>
+    <published>2022-07-30T16:40:20.000Z</published>
+    <updated>2022-07-30T16:44:38.999Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p><a href="https://codeforces.com/problemset/problem/1419/D1">Codeforces 1419D1</a> C++ 一解.</p></blockquote><span id="more"></span><h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>本题是简单版本, 各个冰淇淋球的价格都不相同. 我们只需要构造出数量最多的 “谷” 即可. 与上篇 <a href="https://blog.imakiseki.cf/acmoi/codeforces/1312b/">Codeforces 1312B: Bogosort</a> 类似, 这次相当于对一个排序后的数组同时从两边取数输出, 例如对输入数据 $[7,6,5,4,3,2,1]$, 两边取数得到 $[7,1,6,2,5,3,4]$, 这样得到的新数列的 “谷” 数量最多, 且为 $\left[\dfrac{n-1}{2}\right]$.</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> a[<span class="number">100000</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, p = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; a[i];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; (n - <span class="number">1</span>) / <span class="number">2</span> &lt;&lt; endl;</span><br><span class="line">    <span class="built_in">sort</span>(a, a + n);</span><br><span class="line">    <span class="keyword">while</span> (p++ &lt; n / <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; a[n - p] &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; a[p - <span class="number">1</span>] &lt;&lt; <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (n % <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; a[p - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://codeforces.com/problemset/problem/1419/D1&quot;&gt;Codeforces 1419D1&lt;/a&gt; C++ 一解.&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="Essay" scheme="https://blog.imakiseki.cf/categories/Essay/"/>
+    
+    
+    <category term="Programming" scheme="https://blog.imakiseki.cf/tags/Programming/"/>
+    
+    <category term="C++" scheme="https://blog.imakiseki.cf/tags/C/"/>
+    
+    <category term="Codeforces" scheme="https://blog.imakiseki.cf/tags/Codeforces/"/>
+    
+    <category term="Solution" scheme="https://blog.imakiseki.cf/tags/Solution/"/>
+    
+  </entry>
   
   <entry>
     <title>Codeforces 1312B: Bogosort</title>
