@@ -3,11 +3,11 @@
   <title>LittleYe233&#39;s Blog</title>
   
   
-  <link href="https://blog.imakiseki.cf/atom.xml" rel="self"/>
+  <link href="https://blog.tamako.work/atom.xml" rel="self"/>
   
-  <link href="https://blog.imakiseki.cf/"/>
+  <link href="https://blog.tamako.work/"/>
   <updated>2022-11-29T15:10:40.000Z</updated>
-  <id>https://blog.imakiseki.cf/</id>
+  <id>https://blog.tamako.work/</id>
   
   <author>
     <name>LittleYe233</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>个人近况 (-2022.11)</title>
-    <link href="https://blog.imakiseki.cf/myself/recent/-2022-nov/"/>
-    <id>https://blog.imakiseki.cf/myself/recent/-2022-nov/</id>
+    <link href="https://blog.tamako.work/myself/recent/-2022-nov/"/>
+    <id>https://blog.tamako.work/myself/recent/-2022-nov/</id>
     <published>2022-11-29T15:10:40.000Z</published>
     <updated>2022-11-29T15:10:40.000Z</updated>
     
@@ -33,25 +33,25 @@
     
     
     
-    <category term="Essay" scheme="https://blog.imakiseki.cf/categories/Essay/"/>
+    <category term="Essay" scheme="https://blog.tamako.work/categories/Essay/"/>
     
-    <category term="Report" scheme="https://blog.imakiseki.cf/categories/Essay/Report/"/>
+    <category term="Report" scheme="https://blog.tamako.work/categories/Essay/Report/"/>
     
     
-    <category term="Self Analysis" scheme="https://blog.imakiseki.cf/tags/Self-Analysis/"/>
+    <category term="Self Analysis" scheme="https://blog.tamako.work/tags/Self-Analysis/"/>
     
-    <category term="Cross-dressing" scheme="https://blog.imakiseki.cf/tags/Cross-dressing/"/>
+    <category term="Cross-dressing" scheme="https://blog.tamako.work/tags/Cross-dressing/"/>
     
-    <category term="Transgender" scheme="https://blog.imakiseki.cf/tags/Transgender/"/>
+    <category term="Transgender" scheme="https://blog.tamako.work/tags/Transgender/"/>
     
-    <category term="Recent Activities" scheme="https://blog.imakiseki.cf/tags/Recent-Activities/"/>
+    <category term="Recent Activities" scheme="https://blog.tamako.work/tags/Recent-Activities/"/>
     
   </entry>
   
   <entry>
     <title>【Arch Linux】使用 Wine 运行 Galgame</title>
-    <link href="https://blog.imakiseki.cf/techdev/arch/wine-galgame/"/>
-    <id>https://blog.imakiseki.cf/techdev/arch/wine-galgame/</id>
+    <link href="https://blog.tamako.work/techdev/arch/wine-galgame/"/>
+    <id>https://blog.tamako.work/techdev/arch/wine-galgame/</id>
     <published>2022-08-24T16:03:09.000Z</published>
     <updated>2022-08-24T16:03:09.000Z</updated>
     
@@ -63,23 +63,23 @@
     
     
     
-    <category term="Essay" scheme="https://blog.imakiseki.cf/categories/Essay/"/>
+    <category term="Essay" scheme="https://blog.tamako.work/categories/Essay/"/>
     
-    <category term="Tutorial" scheme="https://blog.imakiseki.cf/categories/Essay/Tutorial/"/>
+    <category term="Tutorial" scheme="https://blog.tamako.work/categories/Essay/Tutorial/"/>
     
     
-    <category term="Arch Linux" scheme="https://blog.imakiseki.cf/tags/Arch-Linux/"/>
+    <category term="Arch Linux" scheme="https://blog.tamako.work/tags/Arch-Linux/"/>
     
-    <category term="Wine" scheme="https://blog.imakiseki.cf/tags/Wine/"/>
+    <category term="Wine" scheme="https://blog.tamako.work/tags/Wine/"/>
     
-    <category term="Galgame" scheme="https://blog.imakiseki.cf/tags/Galgame/"/>
+    <category term="Galgame" scheme="https://blog.tamako.work/tags/Galgame/"/>
     
   </entry>
   
   <entry>
     <title>【Arch Linux】编译安装 AUR 上的 Linux 内核</title>
-    <link href="https://blog.imakiseki.cf/techdev/arch/kernel-compilation/"/>
-    <id>https://blog.imakiseki.cf/techdev/arch/kernel-compilation/</id>
+    <link href="https://blog.tamako.work/techdev/arch/kernel-compilation/"/>
+    <id>https://blog.tamako.work/techdev/arch/kernel-compilation/</id>
     <published>2022-08-15T11:00:49.000Z</published>
     <updated>2022-08-15T11:00:49.000Z</updated>
     
@@ -90,27 +90,27 @@
     
     
     
-    <category term="Essay" scheme="https://blog.imakiseki.cf/categories/Essay/"/>
+    <category term="Essay" scheme="https://blog.tamako.work/categories/Essay/"/>
     
-    <category term="Tutorial" scheme="https://blog.imakiseki.cf/categories/Essay/Tutorial/"/>
+    <category term="Tutorial" scheme="https://blog.tamako.work/categories/Essay/Tutorial/"/>
     
     
-    <category term="Arch Linux" scheme="https://blog.imakiseki.cf/tags/Arch-Linux/"/>
+    <category term="Arch Linux" scheme="https://blog.tamako.work/tags/Arch-Linux/"/>
     
-    <category term="Operating System" scheme="https://blog.imakiseki.cf/tags/Operating-System/"/>
+    <category term="Operating System" scheme="https://blog.tamako.work/tags/Operating-System/"/>
     
-    <category term="Kernel" scheme="https://blog.imakiseki.cf/tags/Kernel/"/>
+    <category term="Kernel" scheme="https://blog.tamako.work/tags/Kernel/"/>
     
-    <category term="AUR" scheme="https://blog.imakiseki.cf/tags/AUR/"/>
+    <category term="AUR" scheme="https://blog.tamako.work/tags/AUR/"/>
     
-    <category term="Compilation" scheme="https://blog.imakiseki.cf/tags/Compilation/"/>
+    <category term="Compilation" scheme="https://blog.tamako.work/tags/Compilation/"/>
     
   </entry>
   
   <entry>
     <title>Codeforces 1399D: Binary String to Subsequences</title>
-    <link href="https://blog.imakiseki.cf/acmoi/codeforces/1399d/"/>
-    <id>https://blog.imakiseki.cf/acmoi/codeforces/1399d/</id>
+    <link href="https://blog.tamako.work/acmoi/codeforces/1399d/"/>
+    <id>https://blog.tamako.work/acmoi/codeforces/1399d/</id>
     <published>2022-08-01T16:39:59.000Z</published>
     <updated>2022-08-02T00:45:19.018Z</updated>
     
@@ -123,23 +123,23 @@
     
     
     
-    <category term="Essay" scheme="https://blog.imakiseki.cf/categories/Essay/"/>
+    <category term="Essay" scheme="https://blog.tamako.work/categories/Essay/"/>
     
     
-    <category term="Programming" scheme="https://blog.imakiseki.cf/tags/Programming/"/>
+    <category term="Programming" scheme="https://blog.tamako.work/tags/Programming/"/>
     
-    <category term="C++" scheme="https://blog.imakiseki.cf/tags/C/"/>
+    <category term="C++" scheme="https://blog.tamako.work/tags/C/"/>
     
-    <category term="Codeforces" scheme="https://blog.imakiseki.cf/tags/Codeforces/"/>
+    <category term="Codeforces" scheme="https://blog.tamako.work/tags/Codeforces/"/>
     
-    <category term="Solution" scheme="https://blog.imakiseki.cf/tags/Solution/"/>
+    <category term="Solution" scheme="https://blog.tamako.work/tags/Solution/"/>
     
   </entry>
   
   <entry>
     <title>Codeforces 1368B: Codeforces Subsequences</title>
-    <link href="https://blog.imakiseki.cf/acmoi/codeforces/1368b/"/>
-    <id>https://blog.imakiseki.cf/acmoi/codeforces/1368b/</id>
+    <link href="https://blog.tamako.work/acmoi/codeforces/1368b/"/>
+    <id>https://blog.tamako.work/acmoi/codeforces/1368b/</id>
     <published>2022-08-01T10:25:06.000Z</published>
     <updated>2022-08-01T14:08:08.080Z</updated>
     
@@ -152,25 +152,25 @@
     
     
     
-    <category term="Essay" scheme="https://blog.imakiseki.cf/categories/Essay/"/>
+    <category term="Essay" scheme="https://blog.tamako.work/categories/Essay/"/>
     
     
-    <category term="Programming" scheme="https://blog.imakiseki.cf/tags/Programming/"/>
+    <category term="Programming" scheme="https://blog.tamako.work/tags/Programming/"/>
     
-    <category term="Python" scheme="https://blog.imakiseki.cf/tags/Python/"/>
+    <category term="Python" scheme="https://blog.tamako.work/tags/Python/"/>
     
-    <category term="C++" scheme="https://blog.imakiseki.cf/tags/C/"/>
+    <category term="C++" scheme="https://blog.tamako.work/tags/C/"/>
     
-    <category term="Codeforces" scheme="https://blog.imakiseki.cf/tags/Codeforces/"/>
+    <category term="Codeforces" scheme="https://blog.tamako.work/tags/Codeforces/"/>
     
-    <category term="Solution" scheme="https://blog.imakiseki.cf/tags/Solution/"/>
+    <category term="Solution" scheme="https://blog.tamako.work/tags/Solution/"/>
     
   </entry>
   
   <entry>
     <title>Codeforces 1430C: Numbers on Whiteboard</title>
-    <link href="https://blog.imakiseki.cf/acmoi/codeforces/1430c/"/>
-    <id>https://blog.imakiseki.cf/acmoi/codeforces/1430c/</id>
+    <link href="https://blog.tamako.work/acmoi/codeforces/1430c/"/>
+    <id>https://blog.tamako.work/acmoi/codeforces/1430c/</id>
     <published>2022-07-31T02:39:03.000Z</published>
     <updated>2022-07-31T02:49:50.473Z</updated>
     
@@ -183,23 +183,23 @@
     
     
     
-    <category term="Essay" scheme="https://blog.imakiseki.cf/categories/Essay/"/>
+    <category term="Essay" scheme="https://blog.tamako.work/categories/Essay/"/>
     
     
-    <category term="Programming" scheme="https://blog.imakiseki.cf/tags/Programming/"/>
+    <category term="Programming" scheme="https://blog.tamako.work/tags/Programming/"/>
     
-    <category term="C++" scheme="https://blog.imakiseki.cf/tags/C/"/>
+    <category term="C++" scheme="https://blog.tamako.work/tags/C/"/>
     
-    <category term="Codeforces" scheme="https://blog.imakiseki.cf/tags/Codeforces/"/>
+    <category term="Codeforces" scheme="https://blog.tamako.work/tags/Codeforces/"/>
     
-    <category term="Solution" scheme="https://blog.imakiseki.cf/tags/Solution/"/>
+    <category term="Solution" scheme="https://blog.tamako.work/tags/Solution/"/>
     
   </entry>
   
   <entry>
     <title>Codeforces 1419D1: Sage&#39;s Birthday (easy version)</title>
-    <link href="https://blog.imakiseki.cf/acmoi/codeforces/1419d1/"/>
-    <id>https://blog.imakiseki.cf/acmoi/codeforces/1419d1/</id>
+    <link href="https://blog.tamako.work/acmoi/codeforces/1419d1/"/>
+    <id>https://blog.tamako.work/acmoi/codeforces/1419d1/</id>
     <published>2022-07-30T16:40:20.000Z</published>
     <updated>2022-07-30T16:44:38.999Z</updated>
     
@@ -212,23 +212,23 @@
     
     
     
-    <category term="Essay" scheme="https://blog.imakiseki.cf/categories/Essay/"/>
+    <category term="Essay" scheme="https://blog.tamako.work/categories/Essay/"/>
     
     
-    <category term="Programming" scheme="https://blog.imakiseki.cf/tags/Programming/"/>
+    <category term="Programming" scheme="https://blog.tamako.work/tags/Programming/"/>
     
-    <category term="C++" scheme="https://blog.imakiseki.cf/tags/C/"/>
+    <category term="C++" scheme="https://blog.tamako.work/tags/C/"/>
     
-    <category term="Codeforces" scheme="https://blog.imakiseki.cf/tags/Codeforces/"/>
+    <category term="Codeforces" scheme="https://blog.tamako.work/tags/Codeforces/"/>
     
-    <category term="Solution" scheme="https://blog.imakiseki.cf/tags/Solution/"/>
+    <category term="Solution" scheme="https://blog.tamako.work/tags/Solution/"/>
     
   </entry>
   
   <entry>
     <title>Codeforces 1312B: Bogosort</title>
-    <link href="https://blog.imakiseki.cf/acmoi/codeforces/1312b/"/>
-    <id>https://blog.imakiseki.cf/acmoi/codeforces/1312b/</id>
+    <link href="https://blog.tamako.work/acmoi/codeforces/1312b/"/>
+    <id>https://blog.tamako.work/acmoi/codeforces/1312b/</id>
     <published>2022-07-30T15:21:16.000Z</published>
     <updated>2022-07-30T15:53:25.407Z</updated>
     
@@ -241,23 +241,23 @@
     
     
     
-    <category term="Essay" scheme="https://blog.imakiseki.cf/categories/Essay/"/>
+    <category term="Essay" scheme="https://blog.tamako.work/categories/Essay/"/>
     
     
-    <category term="Programming" scheme="https://blog.imakiseki.cf/tags/Programming/"/>
+    <category term="Programming" scheme="https://blog.tamako.work/tags/Programming/"/>
     
-    <category term="C++" scheme="https://blog.imakiseki.cf/tags/C/"/>
+    <category term="C++" scheme="https://blog.tamako.work/tags/C/"/>
     
-    <category term="Codeforces" scheme="https://blog.imakiseki.cf/tags/Codeforces/"/>
+    <category term="Codeforces" scheme="https://blog.tamako.work/tags/Codeforces/"/>
     
-    <category term="Solution" scheme="https://blog.imakiseki.cf/tags/Solution/"/>
+    <category term="Solution" scheme="https://blog.tamako.work/tags/Solution/"/>
     
   </entry>
   
   <entry>
     <title>Codeforces 1474B: Different Divisors</title>
-    <link href="https://blog.imakiseki.cf/acmoi/codeforces/1474b/"/>
-    <id>https://blog.imakiseki.cf/acmoi/codeforces/1474b/</id>
+    <link href="https://blog.tamako.work/acmoi/codeforces/1474b/"/>
+    <id>https://blog.tamako.work/acmoi/codeforces/1474b/</id>
     <published>2022-07-30T03:14:01.000Z</published>
     <updated>2022-07-30T03:56:54.024Z</updated>
     
@@ -270,23 +270,23 @@
     
     
     
-    <category term="Essay" scheme="https://blog.imakiseki.cf/categories/Essay/"/>
+    <category term="Essay" scheme="https://blog.tamako.work/categories/Essay/"/>
     
     
-    <category term="Programming" scheme="https://blog.imakiseki.cf/tags/Programming/"/>
+    <category term="Programming" scheme="https://blog.tamako.work/tags/Programming/"/>
     
-    <category term="C++" scheme="https://blog.imakiseki.cf/tags/C/"/>
+    <category term="C++" scheme="https://blog.tamako.work/tags/C/"/>
     
-    <category term="Codeforces" scheme="https://blog.imakiseki.cf/tags/Codeforces/"/>
+    <category term="Codeforces" scheme="https://blog.tamako.work/tags/Codeforces/"/>
     
-    <category term="Solution" scheme="https://blog.imakiseki.cf/tags/Solution/"/>
+    <category term="Solution" scheme="https://blog.tamako.work/tags/Solution/"/>
     
   </entry>
   
   <entry>
     <title>Codeforces 766A: Mahmoud and Longest Uncommon Subsequence</title>
-    <link href="https://blog.imakiseki.cf/acmoi/codeforces/766a/"/>
-    <id>https://blog.imakiseki.cf/acmoi/codeforces/766a/</id>
+    <link href="https://blog.tamako.work/acmoi/codeforces/766a/"/>
+    <id>https://blog.tamako.work/acmoi/codeforces/766a/</id>
     <published>2022-07-30T00:52:37.000Z</published>
     <updated>2022-07-30T01:03:13.140Z</updated>
     
@@ -299,15 +299,15 @@
     
     
     
-    <category term="Essay" scheme="https://blog.imakiseki.cf/categories/Essay/"/>
+    <category term="Essay" scheme="https://blog.tamako.work/categories/Essay/"/>
     
     
   </entry>
   
   <entry>
     <title>Codeforces 1520C: Not Adjacent Matrix</title>
-    <link href="https://blog.imakiseki.cf/acmoi/codeforces/1520c/"/>
-    <id>https://blog.imakiseki.cf/acmoi/codeforces/1520c/</id>
+    <link href="https://blog.tamako.work/acmoi/codeforces/1520c/"/>
+    <id>https://blog.tamako.work/acmoi/codeforces/1520c/</id>
     <published>2022-07-28T11:23:45.000Z</published>
     <updated>2022-07-28T11:39:43.700Z</updated>
     
@@ -320,23 +320,23 @@
     
     
     
-    <category term="Essay" scheme="https://blog.imakiseki.cf/categories/Essay/"/>
+    <category term="Essay" scheme="https://blog.tamako.work/categories/Essay/"/>
     
     
-    <category term="Programming" scheme="https://blog.imakiseki.cf/tags/Programming/"/>
+    <category term="Programming" scheme="https://blog.tamako.work/tags/Programming/"/>
     
-    <category term="C++" scheme="https://blog.imakiseki.cf/tags/C/"/>
+    <category term="C++" scheme="https://blog.tamako.work/tags/C/"/>
     
-    <category term="Codeforces" scheme="https://blog.imakiseki.cf/tags/Codeforces/"/>
+    <category term="Codeforces" scheme="https://blog.tamako.work/tags/Codeforces/"/>
     
-    <category term="Solution" scheme="https://blog.imakiseki.cf/tags/Solution/"/>
+    <category term="Solution" scheme="https://blog.tamako.work/tags/Solution/"/>
     
   </entry>
   
   <entry>
     <title>Codeforces 266B: Queue at the School</title>
-    <link href="https://blog.imakiseki.cf/acmoi/codeforces/266b/"/>
-    <id>https://blog.imakiseki.cf/acmoi/codeforces/266b/</id>
+    <link href="https://blog.tamako.work/acmoi/codeforces/266b/"/>
+    <id>https://blog.tamako.work/acmoi/codeforces/266b/</id>
     <published>2022-07-26T14:57:22.000Z</published>
     <updated>2022-08-15T14:43:42.000Z</updated>
     
@@ -349,23 +349,23 @@
     
     
     
-    <category term="Essay" scheme="https://blog.imakiseki.cf/categories/Essay/"/>
+    <category term="Essay" scheme="https://blog.tamako.work/categories/Essay/"/>
     
     
-    <category term="Programming" scheme="https://blog.imakiseki.cf/tags/Programming/"/>
+    <category term="Programming" scheme="https://blog.tamako.work/tags/Programming/"/>
     
-    <category term="C++" scheme="https://blog.imakiseki.cf/tags/C/"/>
+    <category term="C++" scheme="https://blog.tamako.work/tags/C/"/>
     
-    <category term="Codeforces" scheme="https://blog.imakiseki.cf/tags/Codeforces/"/>
+    <category term="Codeforces" scheme="https://blog.tamako.work/tags/Codeforces/"/>
     
-    <category term="Solution" scheme="https://blog.imakiseki.cf/tags/Solution/"/>
+    <category term="Solution" scheme="https://blog.tamako.work/tags/Solution/"/>
     
   </entry>
   
   <entry>
     <title>【Arch Linux】本地化：简体中文</title>
-    <link href="https://blog.imakiseki.cf/techdev/arch/localization-simplified-chinese/"/>
-    <id>https://blog.imakiseki.cf/techdev/arch/localization-simplified-chinese/</id>
+    <link href="https://blog.tamako.work/techdev/arch/localization-simplified-chinese/"/>
+    <id>https://blog.tamako.work/techdev/arch/localization-simplified-chinese/</id>
     <published>2022-07-13T14:26:58.000Z</published>
     <updated>2022-07-13T18:14:13.000Z</updated>
     
@@ -377,27 +377,27 @@
     
     
     
-    <category term="Essay" scheme="https://blog.imakiseki.cf/categories/Essay/"/>
+    <category term="Essay" scheme="https://blog.tamako.work/categories/Essay/"/>
     
-    <category term="Tutorial" scheme="https://blog.imakiseki.cf/categories/Essay/Tutorial/"/>
+    <category term="Tutorial" scheme="https://blog.tamako.work/categories/Essay/Tutorial/"/>
     
     
-    <category term="Arch Linux" scheme="https://blog.imakiseki.cf/tags/Arch-Linux/"/>
+    <category term="Arch Linux" scheme="https://blog.tamako.work/tags/Arch-Linux/"/>
     
-    <category term="Simplified Chinese" scheme="https://blog.imakiseki.cf/tags/Simplified-Chinese/"/>
+    <category term="Simplified Chinese" scheme="https://blog.tamako.work/tags/Simplified-Chinese/"/>
     
-    <category term="Operating System" scheme="https://blog.imakiseki.cf/tags/Operating-System/"/>
+    <category term="Operating System" scheme="https://blog.tamako.work/tags/Operating-System/"/>
     
-    <category term="Desktop" scheme="https://blog.imakiseki.cf/tags/Desktop/"/>
+    <category term="Desktop" scheme="https://blog.tamako.work/tags/Desktop/"/>
     
-    <category term="Localization" scheme="https://blog.imakiseki.cf/tags/Localization/"/>
+    <category term="Localization" scheme="https://blog.tamako.work/tags/Localization/"/>
     
   </entry>
   
   <entry>
     <title>【Arch Linux】maddy 邮件服务器搭建</title>
-    <link href="https://blog.imakiseki.cf/techdev/arch/maddy/"/>
-    <id>https://blog.imakiseki.cf/techdev/arch/maddy/</id>
+    <link href="https://blog.tamako.work/techdev/arch/maddy/"/>
+    <id>https://blog.tamako.work/techdev/arch/maddy/</id>
     <published>2022-05-15T17:09:52.000Z</published>
     <updated>2022-07-13T12:03:22.000Z</updated>
     
@@ -410,21 +410,21 @@
     
     
     
-    <category term="Essay" scheme="https://blog.imakiseki.cf/categories/Essay/"/>
+    <category term="Essay" scheme="https://blog.tamako.work/categories/Essay/"/>
     
     
-    <category term="Arch Linux" scheme="https://blog.imakiseki.cf/tags/Arch-Linux/"/>
+    <category term="Arch Linux" scheme="https://blog.tamako.work/tags/Arch-Linux/"/>
     
-    <category term="maddy" scheme="https://blog.imakiseki.cf/tags/maddy/"/>
+    <category term="maddy" scheme="https://blog.tamako.work/tags/maddy/"/>
     
-    <category term="Email" scheme="https://blog.imakiseki.cf/tags/Email/"/>
+    <category term="Email" scheme="https://blog.tamako.work/tags/Email/"/>
     
   </entry>
   
   <entry>
     <title>【Arch Linux】misskey 手动部署和配置</title>
-    <link href="https://blog.imakiseki.cf/techdev/arch/misskey/"/>
-    <id>https://blog.imakiseki.cf/techdev/arch/misskey/</id>
+    <link href="https://blog.tamako.work/techdev/arch/misskey/"/>
+    <id>https://blog.tamako.work/techdev/arch/misskey/</id>
     <published>2022-04-29T12:45:20.000Z</published>
     <updated>2022-07-13T12:03:22.000Z</updated>
     
@@ -435,19 +435,19 @@
     
     
     
-    <category term="Essay" scheme="https://blog.imakiseki.cf/categories/Essay/"/>
+    <category term="Essay" scheme="https://blog.tamako.work/categories/Essay/"/>
     
     
-    <category term="Arch Linux" scheme="https://blog.imakiseki.cf/tags/Arch-Linux/"/>
+    <category term="Arch Linux" scheme="https://blog.tamako.work/tags/Arch-Linux/"/>
     
-    <category term="misskey" scheme="https://blog.imakiseki.cf/tags/misskey/"/>
+    <category term="misskey" scheme="https://blog.tamako.work/tags/misskey/"/>
     
   </entry>
   
   <entry>
     <title>Arch Linux 物理机安装大体思路和部分实现细节（MBR &amp; GPT）</title>
-    <link href="https://blog.imakiseki.cf/techdev/arch/installation/"/>
-    <id>https://blog.imakiseki.cf/techdev/arch/installation/</id>
+    <link href="https://blog.tamako.work/techdev/arch/installation/"/>
+    <id>https://blog.tamako.work/techdev/arch/installation/</id>
     <published>2022-04-28T12:18:05.000Z</published>
     <updated>2022-07-13T14:36:50.000Z</updated>
     
@@ -458,25 +458,25 @@
     
     
     
-    <category term="Essay" scheme="https://blog.imakiseki.cf/categories/Essay/"/>
+    <category term="Essay" scheme="https://blog.tamako.work/categories/Essay/"/>
     
-    <category term="Tutorial" scheme="https://blog.imakiseki.cf/categories/Essay/Tutorial/"/>
+    <category term="Tutorial" scheme="https://blog.tamako.work/categories/Essay/Tutorial/"/>
     
     
-    <category term="Arch Linux" scheme="https://blog.imakiseki.cf/tags/Arch-Linux/"/>
+    <category term="Arch Linux" scheme="https://blog.tamako.work/tags/Arch-Linux/"/>
     
-    <category term="Operating System" scheme="https://blog.imakiseki.cf/tags/Operating-System/"/>
+    <category term="Operating System" scheme="https://blog.tamako.work/tags/Operating-System/"/>
     
-    <category term="Boot Loader" scheme="https://blog.imakiseki.cf/tags/Boot-Loader/"/>
+    <category term="Boot Loader" scheme="https://blog.tamako.work/tags/Boot-Loader/"/>
     
-    <category term="Desktop" scheme="https://blog.imakiseki.cf/tags/Desktop/"/>
+    <category term="Desktop" scheme="https://blog.tamako.work/tags/Desktop/"/>
     
   </entry>
   
   <entry>
     <title>蓝桥杯真题：分巧克力</title>
-    <link href="https://blog.imakiseki.cf/acmoi/lanqiao/fen-qiao-ke-li/"/>
-    <id>https://blog.imakiseki.cf/acmoi/lanqiao/fen-qiao-ke-li/</id>
+    <link href="https://blog.tamako.work/acmoi/lanqiao/fen-qiao-ke-li/"/>
+    <id>https://blog.tamako.work/acmoi/lanqiao/fen-qiao-ke-li/</id>
     <published>2022-03-19T01:55:58.000Z</published>
     <updated>2022-08-15T14:43:42.000Z</updated>
     
@@ -489,27 +489,27 @@
     
     
     
-    <category term="Essay" scheme="https://blog.imakiseki.cf/categories/Essay/"/>
+    <category term="Essay" scheme="https://blog.tamako.work/categories/Essay/"/>
     
     
-    <category term="Programming" scheme="https://blog.imakiseki.cf/tags/Programming/"/>
+    <category term="Programming" scheme="https://blog.tamako.work/tags/Programming/"/>
     
-    <category term="Python" scheme="https://blog.imakiseki.cf/tags/Python/"/>
+    <category term="Python" scheme="https://blog.tamako.work/tags/Python/"/>
     
-    <category term="ACM" scheme="https://blog.imakiseki.cf/tags/ACM/"/>
+    <category term="ACM" scheme="https://blog.tamako.work/tags/ACM/"/>
     
-    <category term="OI" scheme="https://blog.imakiseki.cf/tags/OI/"/>
+    <category term="OI" scheme="https://blog.tamako.work/tags/OI/"/>
     
-    <category term="Lanqiao" scheme="https://blog.imakiseki.cf/tags/Lanqiao/"/>
+    <category term="Lanqiao" scheme="https://blog.tamako.work/tags/Lanqiao/"/>
     
-    <category term="Problem" scheme="https://blog.imakiseki.cf/tags/Problem/"/>
+    <category term="Problem" scheme="https://blog.tamako.work/tags/Problem/"/>
     
   </entry>
   
   <entry>
     <title>蓝桥杯真题：纯质数</title>
-    <link href="https://blog.imakiseki.cf/acmoi/lanqiao/chun-zhi-shu/"/>
-    <id>https://blog.imakiseki.cf/acmoi/lanqiao/chun-zhi-shu/</id>
+    <link href="https://blog.tamako.work/acmoi/lanqiao/chun-zhi-shu/"/>
+    <id>https://blog.tamako.work/acmoi/lanqiao/chun-zhi-shu/</id>
     <published>2022-03-11T15:39:56.000Z</published>
     <updated>2022-08-15T14:43:42.000Z</updated>
     
@@ -522,27 +522,27 @@
     
     
     
-    <category term="Essay" scheme="https://blog.imakiseki.cf/categories/Essay/"/>
+    <category term="Essay" scheme="https://blog.tamako.work/categories/Essay/"/>
     
     
-    <category term="Programming" scheme="https://blog.imakiseki.cf/tags/Programming/"/>
+    <category term="Programming" scheme="https://blog.tamako.work/tags/Programming/"/>
     
-    <category term="Python" scheme="https://blog.imakiseki.cf/tags/Python/"/>
+    <category term="Python" scheme="https://blog.tamako.work/tags/Python/"/>
     
-    <category term="ACM" scheme="https://blog.imakiseki.cf/tags/ACM/"/>
+    <category term="ACM" scheme="https://blog.tamako.work/tags/ACM/"/>
     
-    <category term="OI" scheme="https://blog.imakiseki.cf/tags/OI/"/>
+    <category term="OI" scheme="https://blog.tamako.work/tags/OI/"/>
     
-    <category term="Lanqiao" scheme="https://blog.imakiseki.cf/tags/Lanqiao/"/>
+    <category term="Lanqiao" scheme="https://blog.tamako.work/tags/Lanqiao/"/>
     
-    <category term="Problem" scheme="https://blog.imakiseki.cf/tags/Problem/"/>
+    <category term="Problem" scheme="https://blog.tamako.work/tags/Problem/"/>
     
   </entry>
   
   <entry>
     <title>【实测】Python 和 C++ 下字符串查找的速度对比</title>
-    <link href="https://blog.imakiseki.cf/techdev/python-cpp-string-find-perf-test/"/>
-    <id>https://blog.imakiseki.cf/techdev/python-cpp-string-find-perf-test/</id>
+    <link href="https://blog.tamako.work/techdev/python-cpp-string-find-perf-test/"/>
+    <id>https://blog.tamako.work/techdev/python-cpp-string-find-perf-test/</id>
     <published>2022-03-07T09:12:48.000Z</published>
     <updated>2022-03-07T09:19:40.000Z</updated>
     
@@ -555,23 +555,23 @@
     
     
     
-    <category term="Essay" scheme="https://blog.imakiseki.cf/categories/Essay/"/>
+    <category term="Essay" scheme="https://blog.tamako.work/categories/Essay/"/>
     
     
-    <category term="Programming" scheme="https://blog.imakiseki.cf/tags/Programming/"/>
+    <category term="Programming" scheme="https://blog.tamako.work/tags/Programming/"/>
     
-    <category term="Python" scheme="https://blog.imakiseki.cf/tags/Python/"/>
+    <category term="Python" scheme="https://blog.tamako.work/tags/Python/"/>
     
-    <category term="C++" scheme="https://blog.imakiseki.cf/tags/C/"/>
+    <category term="C++" scheme="https://blog.tamako.work/tags/C/"/>
     
-    <category term="Performance" scheme="https://blog.imakiseki.cf/tags/Performance/"/>
+    <category term="Performance" scheme="https://blog.tamako.work/tags/Performance/"/>
     
   </entry>
   
   <entry>
     <title>Linux 时间操作及其同步</title>
-    <link href="https://blog.imakiseki.cf/techdev/linux-time-operations-and-sync/"/>
-    <id>https://blog.imakiseki.cf/techdev/linux-time-operations-and-sync/</id>
+    <link href="https://blog.tamako.work/techdev/linux-time-operations-and-sync/"/>
+    <id>https://blog.tamako.work/techdev/linux-time-operations-and-sync/</id>
     <published>2022-02-27T12:14:00.000Z</published>
     <updated>2022-02-27T15:17:47.000Z</updated>
     
@@ -584,14 +584,14 @@
     
     
     
-    <category term="Essay" scheme="https://blog.imakiseki.cf/categories/Essay/"/>
+    <category term="Essay" scheme="https://blog.tamako.work/categories/Essay/"/>
     
     
-    <category term="Linux" scheme="https://blog.imakiseki.cf/tags/Linux/"/>
+    <category term="Linux" scheme="https://blog.tamako.work/tags/Linux/"/>
     
-    <category term="Arch Linux" scheme="https://blog.imakiseki.cf/tags/Arch-Linux/"/>
+    <category term="Arch Linux" scheme="https://blog.tamako.work/tags/Arch-Linux/"/>
     
-    <category term="Time" scheme="https://blog.imakiseki.cf/tags/Time/"/>
+    <category term="Time" scheme="https://blog.tamako.work/tags/Time/"/>
     
   </entry>
   
