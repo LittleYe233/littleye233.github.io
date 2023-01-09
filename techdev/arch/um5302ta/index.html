@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Arch Linux 在 ASUS Zenbook S 13 OLED (UM5302TA) 上的 patch - LittleYe233&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="LittleYe233&#039;s Blog"><meta name="msapplication-TileImage" content="https://pd.zwc365.com/seturl/https://github.com/LittleYe233.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="LittleYe233&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="综述笔者在 ASUS Zenbook S 13 OLED (UM5302TA) 上安装 Arch Linux 时, 发现仅使用 Arch Linux 官方提供的 linux 或 AUR 上的 linux-mainline 等系统 packages 无法修复一些影响使用体验的问题. 其中一些问题已经得到了有效的解决方法, 乃至被添加入 Linux 源码中; 一些问题的 patch 尚未被纳入 Lin"><meta property="og:type" content="article"><meta property="og:title" content="Arch Linux 在 ASUS Zenbook S 13 OLED (UM5302TA) 上的 patch"><meta property="og:url" content="https://blog.tamako.work/techdev/arch/um5302ta/"><meta property="og:site_name" content="LittleYe233&#039;s Blog"><meta property="og:description" content="综述笔者在 ASUS Zenbook S 13 OLED (UM5302TA) 上安装 Arch Linux 时, 发现仅使用 Arch Linux 官方提供的 linux 或 AUR 上的 linux-mainline 等系统 packages 无法修复一些影响使用体验的问题. 其中一些问题已经得到了有效的解决方法, 乃至被添加入 Linux 源码中; 一些问题的 patch 尚未被纳入 Lin"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://blog.tamako.work/img/og_image.png"><meta property="article:published_time" content="2023-01-09T13:21:35.000Z"><meta property="article:modified_time" content="2023-01-09T13:21:35.000Z"><meta property="article:author" content="LittleYe233"><meta property="article:tag" content="Arch Linux"><meta property="article:tag" content="Kernel"><meta property="article:tag" content="ASUS"><meta property="article:tag" content="UM5302TA"><meta property="article:tag" content="DSDT"><meta property="article:tag" content="ACPI"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://blog.tamako.work/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.tamako.work/techdev/arch/um5302ta/"},"headline":"LittleYe233's Blog","image":["https://blog.tamako.work/img/og_image.png"],"datePublished":"2023-01-09T13:21:35.000Z","dateModified":"2023-01-09T13:21:35.000Z","author":{"@type":"Person","name":"LittleYe233"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject"}},"description":"综述笔者在 ASUS Zenbook S 13 OLED (UM5302TA) 上安装 Arch Linux 时, 发现仅使用 Arch Linux 官方提供的 linux 或 AUR 上的 linux-mainline 等系统 packages 无法修复一些影响使用体验的问题. 其中一些问题已经得到了有效的解决方法, 乃至被添加入 Linux 源码中; 一些问题的 patch 尚未被纳入 Lin"}</script><link rel="canonical" href="https://blog.tamako.work/techdev/arch/um5302ta/"><link rel="icon" href="https://pd.zwc365.com/seturl/https://github.com/LittleYe233.png"><meta name="referrer" content="no-referrer-when-downgrade"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.15.2/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css?family=Ubuntu:400,600|Source+Code+Pro|Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext|Inconsolata|Itim|Lobster.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css" integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ" crossorigin="anonymous"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY" crossorigin="anonymous"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script><script src="https://cdnjs.loli.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="/js/globalUtils.js"></script><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.10.0/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.8.1/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdnjs.loli.net/ajax/libs/pace/1.2.4/pace.min.js"></script><meta name="follow.it-verification-code" content="rabWfGgzpLXy2LNx46TH"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="LittleYe233's Blog" type="application/atom+xml">
+</head><body class="is-3-column has-navbar-fixed-top"><nav class="navbar navbar-main is-fixed-top"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="https://s4.ax1x.com/2022/01/22/7hwc6A.png" alt="LittleYe233&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a><a class="navbar-item" href="/self-talking">Self-talking</a><a class="navbar-item" href="/music">Music</a><a class="navbar-item" href="/media">Media</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/LittleYe233/hexo-theme-amazingremake"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="Catalogue" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a><a class="navbar-item" id="night-nav" title="Night Mode" href="javascript:;"><i class="fas fa-moon" id="night-icon"></i></a></div></div></div></nav><script type="text/javascript" src="/js/theme-setting.js"></script><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-9-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><i class="far fa-calendar-plus"> </i>2023-01-09  <a class="commentCountImg" href="/techdev/arch/um5302ta/#comment-container"><span class="display-none-class">/techdev/arch/um5302ta/</span><i class="far fa-comment-dots"></i> <span class="commentCount" id="fa39cb3512559f89b4df980b3c20b0e1">99+</span>  </a><span class="level-item"><i class="far fa-clock"> </i>16 m  <i class="fas fa-pencil-alt"> </i>2.3 k</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>&nbsp;visits</span></div></div><h1 class="title is-3 is-size-4-mobile">Arch Linux 在 ASUS Zenbook S 13 OLED (UM5302TA) 上的 patch</h1><div class="content"><h2 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h2><p>笔者在 <a target="_blank" rel="noopener" href="https://www.asus.com/ca-en/laptops/for-home/zenbook/zenbook-s-13-oled-um5302-amd-ryzen-6000-series/">ASUS Zenbook S 13 OLED (UM5302TA)</a> 上安装 Arch Linux 时, 发现仅使用 Arch Linux 官方提供的 <a target="_blank" rel="noopener" href="https://archlinux.org/packages/core/x86_64/linux/">linux</a> 或 AUR 上的 <a target="_blank" rel="noopener" href="https://aur.archlinux.org/packages/linux-mainline">linux-mainline</a> 等系统 packages 无法修复一些影响使用体验的问题. 其中一些问题已经得到了有效的解决方法, 乃至被添加入 Linux 源码中; 一些问题的 patch 尚未被纳入 Linux 源码库; 还有一些问题仍无解决方案.</p>
+<p>修复这些问题的主要方式是在 Linux 内核源码中添加 patch, 或者是使用其他的方式 (例如修改 Bootloader 的行为) 来 “动态” 添加部分系统功能. 这些问题的大部分 patch 已经有了更为自动化的解决方案.</p>
+<p>值得注意的是, 本文提及的各种 patch 理论上可以应用于其他发行版.</p>
+<span id="more"></span>
+
+<h2 id="存在的问题和-patch"><a href="#存在的问题和-patch" class="headerlink" title="存在的问题和 patch"></a>存在的问题和 patch</h2><p>GitHub 上的 <a target="_blank" rel="noopener" href="https://github.com/latin-1/um5302ta">um5302ta</a> 仓库汇集了该机型安装 Linux 后存在的各种问题, 以及针对这些问题的 patch, 本文不再赘述. 撰写本文时, 该仓库的最后一个 commit 为 <a target="_blank" rel="noopener" href="https://github.com/latin-1/um5302ta/tree/b40223a5f9dd394f886c1ada50b46813f31e8444">b40223a</a>.</p>
+<p>被纳入 Linux 源码的 patch 分散在不同的内核版本, 最早可追溯到 5.19, 最晚则到了 6.1. 目前 Arch Linux 官方提供的 linux 包已经更新到了 6.1.4.arch1, 本文也以此为例.</p>
+<p>根据该仓库的 <a target="_blank" rel="noopener" href="https://github.com/latin-1/um5302ta/blob/b40223a5f9dd394f886c1ada50b46813f31e8444/README.md">README.md</a>, 目前尚未解决的问题为<a target="_blank" rel="noopener" href="https://github.com/latin-1/um5302ta/blob/b40223a5f9dd394f886c1ada50b46813f31e8444/README.md#fingerprint">指纹</a>, 若无特别提及, 后文提到的 “问题” “所有问题” 并不包含指纹相关的内容.</p>
+<p>而尚未被添加到 Linux 源码库中的问题则是<a target="_blank" rel="noopener" href="https://github.com/latin-1/um5302ta/blob/b40223a5f9dd394f886c1ada50b46813f31e8444/README.md#speaker">扬声器</a>的 DSDT patch 和 <a target="_blank" rel="noopener" href="https://github.com/latin-1/um5302ta/blob/b40223a5f9dd394f886c1ada50b46813f31e8444/README.md#s3-sleep-deep-not-recommended">S3 级别睡眠</a>的 patch. 扬声器的 patch 有两个, 经笔者测试至少可以解决如下的问题:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/latin-1/um5302ta/blob/b40223a5f9dd394f886c1ada50b46813f31e8444/patches/dsdt/spkr-dsd.patch"><code>dsdt/spkr-dsd.patch</code></a>: 解决扬声器没有声音的问题;</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/latin-1/um5302ta/blob/b40223a5f9dd394f886c1ada50b46813f31e8444/patches/kernel/cs35l42-hda-no-acpi-dsd-csc3551.patch"><code>kernel/cs35l42-hda-no-acpi-dsd-csc3551.patch</code></a>: 解决机载麦克风指示灯常亮的问题.</li>
+</ul>
+<p>S3 睡眠的 <a target="_blank" rel="noopener" href="https://github.com/latin-1/um5302ta/blob/b40223a5f9dd394f886c1ada50b46813f31e8444/patches/dsdt/s3.patch">patch</a> 未经过笔者测试.</p>
+<p>同时对<a target="_blank" rel="noopener" href="https://github.com/latin-1/um5302ta/blob/b40223a5f9dd394f886c1ada50b46813f31e8444/README.md#microphone">麦克风</a>的 patch 存在已知的音量过小的问题. 本文不会涉及对此的讨论.</p>
+<p>实际使用发现, 该机型仍然存在数字小键盘无法使用的问题并未在该仓库中提及. 该机型的数字小键盘和触控板合并, 需要通过触摸触控板某一位置开关. 由于该功能实用性有限, 且存在可能的操作上的困难, 本文也不会涉及到该问题.</p>
+<h2 id="主要的解决方案"><a href="#主要的解决方案" class="headerlink" title="主要的解决方案"></a>主要的解决方案</h2><h3 id="linux-mainline-um5302ta-AUR-包"><a href="#linux-mainline-um5302ta-AUR-包" class="headerlink" title="linux-mainline-um5302ta AUR 包"></a><code>linux-mainline-um5302ta</code> AUR 包</h3><table>
+<thead>
+<tr>
+<th align="center">Linux 分支</th>
+<th align="center">Linux 版本</th>
+<th align="center">是否需要编译系统包</th>
+<th align="center">是否需要手动添加 patch</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">主线</td>
+<td align="center">&gt;= 5.19.rc4</td>
+<td align="center">是</td>
+<td align="center">否</td>
+</tr>
+</tbody></table>
+<p>在 Linux 最新的内核版本尚未达到 5.19 时, 所有问题可以通过这个 <a target="_blank" rel="noopener" href="https://aur.archlinux.org/packages/linux-mainline-um5302ta">AUR 包</a>修复. 该包会对 Linux <strong>主线</strong>的 tagged version 源码添加必要的 patch, 并进行<strong>编译安装</strong>. 若系统中已经安装 <code>yay</code> 等 AUR helper, 可以在终端中运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S linux-mainline-um5302ta</span><br></pre></td></tr></table></figure>
+
+<p>安装. 这一命令同时会打包并安装 linux-mainline-um5302ta 和 linux-mainline-um5302ta-headers 两个包. 需要注意的是, 编译内核需要一定的时间.</p>
+<p>因为 um5302ta 这一仓库的存在, 该 AUR 包的作者已经停止维护, 但是理论上通过修改该包的 PKGBUILD 文件仍然可以在未来的内核版本中实现相同的效果.</p>
+<h3 id="其他系统包配合-um5302ta-仓库的-patch"><a href="#其他系统包配合-um5302ta-仓库的-patch" class="headerlink" title="其他系统包配合 um5302ta 仓库的 patch"></a>其他系统包配合 um5302ta 仓库的 patch</h3><table>
+<thead>
+<tr>
+<th align="center">Linux 分支</th>
+<th align="center">Linux 版本</th>
+<th align="center">是否需要编译系统包</th>
+<th align="center">是否需要手动添加 patch</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">任意</td>
+<td align="center">&gt;= 6.0.9</td>
+<td align="center">是/否</td>
+<td align="center">是</td>
+</tr>
+</tbody></table>
+<p>按照 um5302ta 仓库提供的方案, 理论上绝大部分符合版本的 Linux 分支或基于前者的分支皆可以修复问题.</p>
+<p>值得注意的是, <code>dsdt/spkr-dsd.patch</code> 无需编译完整的 Linux 源码包即可应用, 且一大优点是不会在更新内核的时候被覆盖, 因此对于如下不同需求的读者, 可以按照如下的参考路径解决问题, 并选读本节不同的子章节:</p>
+<ul>
+<li><strong>无需 S3 睡眠且不在意麦克风指示灯问题, 且不希望编译完整系统包</strong>: 安装 Arch Linux 官方提供的 linux, linux-zen 等系统包, 并阅读<a href="#%E7%BC%96%E8%AF%91-cpio-archive">编译 CPIO archive</a>子章节;</li>
+<li><strong>无需 S3 睡眠且不在意麦克风指示灯问题, 但需要自行安装其他系统包, 或需要解决前述的两个问题</strong>: 阅读<a href="#%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F%E5%8C%85">编译安装系统包</a>和<a href="#%E7%BC%96%E8%AF%91-cpio-archive">编译 CPIO archive</a>子章节, 并<a href="#%E5%BA%94%E7%94%A8%E9%80%82%E5%BD%93%E7%9A%84-patch">选择适当的 patch</a>;</li>
+<li><strong>不希望改动 boot loader 行为</strong>: 阅读<a href="#%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F%E5%8C%85">编译安装系统包</a>子章节, 并<a href="#%E5%BA%94%E7%94%A8%E9%80%82%E5%BD%93%E7%9A%84-patch">选择适当的 patch</a>.</li>
+</ul>
+<h4 id="应用适当的-patch"><a href="#应用适当的-patch" class="headerlink" title="应用适当的 patch"></a>应用适当的 patch</h4><p>Arch Linux 官方提供的系统包或从这些包中分支出的 AUR 包可以自动应用 patch. 读者需要做的是将所需的 patch 放置在 PKGBUILD 文件 (会在<a href="#%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F%E5%8C%85">后文</a>提及) 的父目录中, 然后修改 PKGBUILD 文件的内容, 将 patch 的路径添加到其中的 <code>source</code> 变量中. 理论上仍然需要在 <code>sha256sums</code> 变量中添加对应 patch 的 SHA256, 但可以使用 <code>&#39;SKIP&#39;</code> 跳过校验.</p>
+<p>例如, 若需要应用 <code>kernel/cs35l42-hda-no-acpi-dsd-csc3551.patch</code> 这个 patch, 则只需要直接将该 patch 下载到对应的文件夹:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /path/to/package <span class="comment"># 提前切换当前文件夹</span></span><br><span class="line">wget https://github.com/latin-1/um5302ta/blob/b40223a5f9dd394f886c1ada50b46813f31e8444/patches/kernel/cs35l42-hda-no-acpi-dsd-csc3551.patch <span class="comment"># 下载 patch</span></span><br><span class="line">vim PKGBUILD</span><br></pre></td></tr></table></figure>
+
+<p>然后作出类似如下的修改, 将</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span>=(</span><br><span class="line">  <span class="string">&quot;<span class="variable">$_srcname</span>::git+https://github.com/archlinux/linux?signed#tag=<span class="variable">$_srctag</span>&quot;</span></span><br><span class="line">  config         <span class="comment"># the main kernel config file</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>改为</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span>=(</span><br><span class="line">  <span class="string">&quot;<span class="variable">$_srcname</span>::git+https://github.com/archlinux/linux?signed#tag=<span class="variable">$_srctag</span>&quot;</span></span><br><span class="line">  config         <span class="comment"># the main kernel config file</span></span><br><span class="line">  kernel/cs35l42-hda-no-acpi-dsd-csc3551.patch</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>然后将</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sha256sums=(<span class="string">&#x27;SKIP&#x27;</span></span><br><span class="line">            <span class="string">&#x27;0571ea17a2e38458096b679418197bbea8c414388f628d122517f3a1f3a31b3a&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>改为</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sha256sums=(<span class="string">&#x27;SKIP&#x27;</span></span><br><span class="line">            <span class="string">&#x27;0571ea17a2e38458096b679418197bbea8c414388f628d122517f3a1f3a31b3a&#x27;</span></span><br><span class="line">            <span class="string">&#x27;SKIP&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>添加多个 patch 的方法类似.</p>
+<h4 id="编译安装系统包"><a href="#编译安装系统包" class="headerlink" title="编译安装系统包"></a>编译安装系统包</h4><p>Arch Linux 官方 fork 了 Linux 社区的源码库, 并提供了编译, 打包, 安装的 “脚本” (交由 <code>pacman</code> 执行, 并不完全等同于 Shell 脚本). 本文以 linux 系统包为例.</p>
+<p>与 AUR 包不同, Arch Linux 官方维护的包存储于 GitHub 的 <a target="_blank" rel="noopener" href="https://github.com/archlinux/svntogit-packages">svntogit-packages</a> 仓库, 但所有的软件包的相关数据存储于各个分支中, 故直接克隆该仓库会产生大量的无用数据. 笔者选择直接 pull 需要的分支:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> linux &amp;&amp; <span class="built_in">cd</span> linux</span><br><span class="line">git init</span><br><span class="line">git remote add origin https://github.com/archlinux/svntogit-packages.git</span><br><span class="line">git pull origin packages/linux</span><br><span class="line">git branch -M packages/linux <span class="comment"># 可选</span></span><br><span class="line"><span class="built_in">cd</span> trunk</span><br></pre></td></tr></table></figure>
+
+<p>该文件夹的结构与 AUR 包相同, 可以看到其中存在 PKGBUILD 文件. 此时可以根据 “<a href="#%E5%BA%94%E7%94%A8%E9%80%82%E5%BD%93%E7%9A%84-patch">应用适当的 patch</a>“ 章节的内容将 patch 的信息添加至 PKGBUILD 中. 随后, 在终端中执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">makepkg -si</span><br></pre></td></tr></table></figure>
+
+<p>编译, 打包并安装. 这会产生 linux, linux-docs, linux-headers 三个包.</p>
+<h4 id="编译-CPIO-archive"><a href="#编译-CPIO-archive" class="headerlink" title="编译 CPIO archive"></a>编译 CPIO archive</h4><p>重启应用新的内核后, 则需要应用 <code>dsdt/spkr-dsd.patch</code>. 对 DSDT 的介绍见<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/DSDT">此</a>. 大部分情况下, 读者只需要从 “<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/DSDT#Recompiling_it_yourself">Recompiling it yourself</a>“ 小节开始阅读.</p>
+<p>首先需要安装 <a target="_blank" rel="noopener" href="https://archlinux.org/packages/?name=acpica">acpica</a> 这个软件包. 然后在终端中执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo sh -c <span class="string">&quot;cat /sys/firmware/acpi/tables/DSDT &gt; dsdt.dat&quot;</span></span><br><span class="line">iasl -d dsdt.dat</span><br><span class="line">wget https://github.com/latin-1/um5302ta/blob/b40223a5f9dd394f886c1ada50b46813f31e8444/patches/dsdt/spkr-dsd.patch</span><br><span class="line">patch -Np1 &lt; spkr-dsd.patch</span><br><span class="line">iasl -tc dsdt.dsl</span><br></pre></td></tr></table></figure>
+
+<p>此时可以在当前目录找到 <code>dsdt.aml</code>. 再拉取 Linux 的源码, 切换当前目录到源码文件夹, 在终端中执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p kernel/firmware/acpi</span><br><span class="line"><span class="built_in">cp</span> /path/to/dsdt.aml kernel/firmware/acpi <span class="comment"># 将 /path/to/dsdt.aml 更换为正确的路径</span></span><br><span class="line">find kernel | cpio -H newc --create &gt; acpi_override</span><br><span class="line">sudo <span class="built_in">cp</span> acpi_override /boot</span><br></pre></td></tr></table></figure>
+
+<p><code>acpi_override</code> 是一个 CPIO archive 文件, 可以作为 initrd 被 boot loader 加载. 以 GRUB 为例, 修改 <code>/etc/default/grub</code> 文件, 在文件末尾添加:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Load custom acpi_override</span></span><br><span class="line">GRUB_EARLY_INITRD_LINUX_CUSTOM=<span class="string">&quot;acpi_override&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>此时这个 CPIO archive 则会在 initramfs 前加载. 使用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo grub-mkconfig -o /boot/grub/grub.cfg</span><br></pre></td></tr></table></figure>
+
+<p>生成 grub 的配置文件. 可以检查该文件中是否已经写入 <code>acpi_override</code>, 例如:</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">initrd  /acpi_override /initramfs-linux.img</span><br></pre></td></tr></table></figure>
+
+<p>重启设备, 该 patch 即被应用.</p>
+<p><strong>[完]</strong></p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Arch Linux 在 ASUS Zenbook S 13 OLED (UM5302TA) 上的 patch</p><p><a href="https://blog.tamako.work/techdev/arch/um5302ta/">https://blog.tamako.work/techdev/arch/um5302ta/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>Author</h6><a href="https://blog.tamako.work"><p>LittleYe233</p></a></div></div><div class="level-item is-narrow"><div><h6>Posted on</h6><p>2023-01-09</p></div></div><div class="level-item is-narrow"><div><h6>Updated on</h6><p>2023-01-09</p></div></div><div class="level-item is-narrow"><div><h6>Licensed under</h6><p><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a class="icon" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a><a class="icon" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="recommend-area"><div class="recommend-post"><span class="is-size-6 has-text-grey has-mr-7"># Related Posts</span><br><span>  1.<a class="is-size-6" href="/techdev/gpg-encryption-decryption-validation/" target="_blank" rel="noreferrer">使用 GPG 加密、解密和验证信息</a><br></span><span>  2.<a class="is-size-6" href="/techdev/kotlin/quick-learning/" target="_blank" rel="noreferrer">Kotlin 简要语法快速学习</a><br></span><span>  3.<a class="is-size-6" href="/techdev/arch/wine-galgame/" target="_blank" rel="noreferrer">【Arch Linux】使用 Wine 运行 Galgame</a><br></span><span>  4.<a class="is-size-6" href="/techdev/arch/kernel-compilation/" target="_blank" rel="noreferrer">【Arch Linux】编译安装 AUR 上的 Linux 内核</a><br></span><span>  5.<a class="is-size-6" href="/techdev/arch/localization-simplified-chinese/" target="_blank" rel="noreferrer">【Arch Linux】本地化：简体中文</a><br></span><span>  6.<a class="is-size-6" href="/techdev/arch/installation/" target="_blank" rel="noreferrer">Arch Linux 物理机安装大体思路和部分实现细节（MBR &amp; GPT）</a><br></span></div><div class="recommend-post"><span class="is-size-6 has-text-grey has-mr-7"># Recommend Posts</span><br><span>  1.<a class="is-size-6" href="/acg/ima-aruki-dasu-kimi-e/" target="_blank" rel="noreferrer">【ACG音乐分享】Ceui《今、歩き出す君へ》</a><br></span><span>  2.<a class="is-size-6" href="/techdev/linux-time-operations-and-sync/" target="_blank" rel="noreferrer">Linux 时间操作及其同步</a><br></span><span>  3.<a class="is-size-6" href="/techdev/how-to-write-a-git-commit-message-chs/" target="_blank" rel="noreferrer">【翻译】如何编写 Git 提交消息</a><br></span><span>  4.<a class="is-size-6" href="/techdev/python-cpp-string-find-perf-test/" target="_blank" rel="noreferrer">【实测】Python 和 C++ 下字符串查找的速度对比</a><br></span><span>  5.<a class="is-size-6" href="/acmoi/codeforces/1312b/" target="_blank" rel="noreferrer">Codeforces 1312B: Bogosort</a><br></span><span>  6.<a class="is-size-6" href="/acmoi/codeforces/1368b/" target="_blank" rel="noreferrer">Codeforces 1368B: Codeforces Subsequences</a><br></span></div></div><div class="sharethis-inline-share-buttons"></div><script src="https://platform-api.sharethis.com/js/sharethis.js#property=61f7585fd7b259001917a045&amp;product=inline-share-buttons" defer></script></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/myself/recent/2022-dec-19-2023-jan-5/"><span class="level-item">个人近况 (2022.12.19-2023.1.5), 一些必须面对的事情, 以及「赛博遗言」</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><div class="title is-5">Comments</div><div class="content twikoo" id="twikoo"></div><script src="https://cdn.jsdelivr.net/npm/twikoo@1.6.8/dist/twikoo.all.min.js"></script><script>twikoo.init({
+      envId: 'https://comment.blog.tamako.work',
+      lang: 'zh-CN',
+      el: '#twikoo'
+    });</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">Catalogue</h3><ul class="menu-list"><li><a class="is-flex is-mobile" href="#综述"><span>综述</span></a></li><li><a class="is-flex is-mobile" href="#存在的问题和-patch"><span>存在的问题和 patch</span></a></li><li><a class="is-flex is-mobile" href="#主要的解决方案"><span>主要的解决方案</span></a><ul class="menu-list"><li><a class="is-flex is-mobile" href="#linux-mainline-um5302ta-AUR-包"><span>linux-mainline-um5302ta AUR 包</span></a></li><li><a class="is-flex is-mobile" href="#其他系统包配合-um5302ta-仓库的-patch"><span>其他系统包配合 um5302ta 仓库的 patch</span></a><ul class="menu-list"><li><a class="is-flex is-mobile" href="#应用适当的-patch"><span>应用适当的 patch</span></a></li><li><a class="is-flex is-mobile" href="#编译安装系统包"><span>编译安装系统包</span></a></li><li><a class="is-flex is-mobile" href="#编译-CPIO-archive"><span>编译 CPIO archive</span></a></li></ul></li></ul></li></ul></div></div><style>.menu-list > li > a.is-active + .menu-list { display: block; }.menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div><div class="column-right-shadow is-hidden-widescreen"></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="https://s4.ax1x.com/2022/01/22/7hwc6A.png" alt="LittleYe233&#039;s Blog" height="28"></a><p class="size-small"><span>&copy; 2023 LittleYe233</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noreferrer">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noreferrer">Icarus</a> &amp; <a href="https://github.com/LittleYe233/hexo-theme-amazingremake" target="_blank" rel="noreferrer">Amazing-Remake</a> <br><span>© <a href="https://icp.gov.moe/?keyword=20227890" target="_blank" rel="noreferrer">萌ICP备20227890号</a><br></span><span>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a> unless the license is specified in articles<br></span><span><span id="statistic-times">loading...</span><script>function createTime(time) {
+            var n = new Date(time);
+            now.setTime(now.getTime() + 250),
+                days = (now - n) / 1e3 / 60 / 60 / 24,
+                dnum = Math.floor(days),
+                hours = (now - n) / 1e3 / 60 / 60 - 24 * dnum,
+                hnum = Math.floor(hours),
+            1 == String(hnum).length && (hnum = "0" + hnum),
+                minutes = (now - n) / 1e3 / 60 - 1440 * dnum - 60 * hnum,
+                mnum = Math.floor(minutes),
+            1 == String(mnum).length && (mnum = "0" + mnum),
+                seconds = (now - n) / 1e3 - 86400 * dnum - 3600 * hnum - 60 * mnum,
+                snum = Math.round(seconds),
+            1 == String(snum).length && (snum = "0" + snum),
+                document.getElementById("statistic-times").innerHTML = "❤️Site from <strong>"+time.split(" ")[0].replace(/\//g,".")+"</strong> has existed <strong>" + dnum + "</strong> d <strong>" + hnum + "</strong> h <strong>" + mnum + "</strong> m <strong>" + snum + "</strong> s!❤️";
+        }var now = new Date();setInterval("createTime('Sun Jan 23 2022 04:54:43 GMT+0800 (China Standard Time)')", 250,"");</script><br></span><div class="size-small"><span>❤️Thx <strong><span id="busuanzi_value_site_uv">99+</span></strong> users <strong><span id="busuanzi_value_site_pv">99+</span></strong> visited!❤️</span></div></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/LittleYe233/hexo-theme-amazingremake"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdnjs.loli.net/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" async></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    enabled: true,
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/lightgallery/1.10.0/js/lightgallery.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdnjs.loli.net/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script><script type="text/javascript">var pjax = new Pjax({
+            elements: "a",//代表点击链接就更新
+            selectors: [  //代表要更新的节点
+                ".section",
+                "title"
+            ],
+            cache: true,
+            cacheBust:false
+        })
+
+        function loadBusuanzi(){
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js", function () {});
+        }
+
+        function loadMathJax() { // 加载mathjax
+            window.MathJax = {
+                tex: {
+                    inlineMath: [['$', '$']],
+                    autoload: {
+                        color: [],
+                        colorv2: ['color']
+                    },
+                    packages: {'[+]': ['noerrors']}
+                },
+                options: {
+                    ignoreHtmlClass: 'tex2jax_ignore',
+                    processHtmlClass: 'tex2jax_process'
+                },
+                loader: {
+                    load: ['input/asciimath', '[tex]/noerrors']
+                }
+            };
+            $.getScript('//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js');
+        };
+
+        // 开始 PJAX 执行的函数
+        document.addEventListener('pjax:send', function () {
+        });
+        
+        // PJAX 完成之后执行的函数，可以和上面的重载放在一起
+        document.addEventListener('pjax:complete', function () {
+            $(".section").css({opacity:1});
+            if(false){
+                $.getScript('/js/comment-issue-data.js',function(){loadIssueData('undefined','undefined','undefined','undefined',undefined);});
+            }
+            if('katex' === 'mathjax'){
+                loadMathJax();
+            }
+            loadMainJs(jQuery, window.moment, window.ClipboardJS, window.IcarusThemeSettings);
+            loadBackTop();
+            loadBusuanzi();
+            if(typeof loadBanner == 'function'){
+                loadBanner();
+            }
+        });</script></body></html>
