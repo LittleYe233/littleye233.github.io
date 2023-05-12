@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Arch Linux 安装 TiddlyWiki + 配置服务 + 添加自定义插件 + Cloudflare 代理 + Caddy 反向代理 - LittleYe233&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="LittleYe233&#039;s Blog"><meta name="msapplication-TileImage" content="https://pd.zwc365.com/seturl/https://github.com/LittleYe233.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="LittleYe233&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="本文将覆盖 TiddlyWiki Node.JS 版本在 Arch Linux 上的安装, 并涉及配置 TiddlyWiki 服务, 添加自定义插件, 在 Cloudflare 代理 DNS 的情形下设置 Caddy 反向代理的内容."><meta property="og:type" content="article"><meta property="og:title" content="Arch Linux 安装 TiddlyWiki + 配置服务 + 添加自定义插件 + Cloudflare 代理 + Caddy 反向代理"><meta property="og:url" content="https://blog.tamako.work/techdev/arch/tiddlywiki/"><meta property="og:site_name" content="LittleYe233&#039;s Blog"><meta property="og:description" content="本文将覆盖 TiddlyWiki Node.JS 版本在 Arch Linux 上的安装, 并涉及配置 TiddlyWiki 服务, 添加自定义插件, 在 Cloudflare 代理 DNS 的情形下设置 Caddy 反向代理的内容."><meta property="og:locale" content="en_US"><meta property="og:image" content="https://blog.tamako.work/img/og_image.png"><meta property="article:published_time" content="2023-05-12T07:28:26.000Z"><meta property="article:modified_time" content="2023-05-12T12:48:22.000Z"><meta property="article:author" content="LittleYe233"><meta property="article:tag" content="Arch Linux"><meta property="article:tag" content="TiddlyWiki"><meta property="article:tag" content="Cloudflare"><meta property="article:tag" content="Caddy"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://blog.tamako.work/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.tamako.work/techdev/arch/tiddlywiki/"},"headline":"LittleYe233's Blog","image":["https://blog.tamako.work/img/og_image.png"],"datePublished":"2023-05-12T07:28:26.000Z","dateModified":"2023-05-12T12:48:22.000Z","author":{"@type":"Person","name":"LittleYe233"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject"}},"description":"本文将覆盖 TiddlyWiki Node.JS 版本在 Arch Linux 上的安装, 并涉及配置 TiddlyWiki 服务, 添加自定义插件, 在 Cloudflare 代理 DNS 的情形下设置 Caddy 反向代理的内容."}</script><link rel="canonical" href="https://blog.tamako.work/techdev/arch/tiddlywiki/"><link rel="icon" href="https://pd.zwc365.com/seturl/https://github.com/LittleYe233.png"><meta name="referrer" content="no-referrer-when-downgrade"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.15.2/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css?family=Ubuntu:400,600|Source+Code+Pro|Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext|Inconsolata|Itim|Lobster.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css" integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ" crossorigin="anonymous"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY" crossorigin="anonymous"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script><script src="https://cdnjs.loli.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="/js/globalUtils.js"></script><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.10.0/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.8.1/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdnjs.loli.net/ajax/libs/pace/1.2.4/pace.min.js"></script><meta name="follow.it-verification-code" content="rabWfGgzpLXy2LNx46TH"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="LittleYe233's Blog" type="application/atom+xml">
+</head><body class="is-3-column has-navbar-fixed-top"><nav class="navbar navbar-main is-fixed-top"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="https://s4.ax1x.com/2022/01/22/7hwc6A.png" alt="LittleYe233&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a><a class="navbar-item" href="/self-talking">Self-talking</a><a class="navbar-item" href="/music">Music</a><a class="navbar-item" href="/media">Media</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/LittleYe233/hexo-theme-amazingremake"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="Catalogue" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a><a class="navbar-item" id="night-nav" title="Night Mode" href="javascript:;"><i class="fas fa-moon" id="night-icon"></i></a></div></div></div></nav><script type="text/javascript" src="/js/theme-setting.js"></script><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-9-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><i class="far fa-calendar-plus"> </i>2023-05-12  <a class="commentCountImg" href="/techdev/arch/tiddlywiki/#comment-container"><span class="display-none-class">/techdev/arch/tiddlywiki/</span><i class="far fa-comment-dots"></i> <span class="commentCount" id="89f78c99ef9240b4ad950e7751c4fadb">99+</span>  </a><span class="level-item"><i class="far fa-clock"> </i>9 m  <i class="fas fa-pencil-alt"> </i>1.4 k</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>&nbsp;visits</span></div></div><h1 class="title is-3 is-size-4-mobile">Arch Linux 安装 TiddlyWiki + 配置服务 + 添加自定义插件 + Cloudflare 代理 + Caddy 反向代理</h1><div class="content"><p>本文将覆盖 TiddlyWiki Node.JS 版本在 Arch Linux 上的安装, 并涉及配置 TiddlyWiki 服务, 添加自定义插件, 在 Cloudflare 代理 DNS 的情形下设置 Caddy 反向代理的内容.</p>
+<span id="more"></span>
+
+<blockquote>
+<p>笔者因为自己和身边发生了各种各样的事情, 疲于更新博客. 今天只能随手写写.</p>
+</blockquote>
+<h2 id="较详细的本文将覆盖的内容"><a href="#较详细的本文将覆盖的内容" class="headerlink" title="较详细的本文将覆盖的内容"></a>较详细的本文将覆盖的内容</h2><ul>
+<li>TiddlyWiki<ul>
+<li>安装</li>
+<li>配置一个 systemd 服务</li>
+<li>将自定义插件放置在统一目录下</li>
+</ul>
+</li>
+<li>Cloudflare<ul>
+<li>添加 DNS 记录</li>
+<li>申请 API token</li>
+</ul>
+</li>
+<li>Caddy<ul>
+<li>编译自定义 build</li>
+<li>配置反向代理</li>
+<li>添加 HTTP basic auth</li>
+</ul>
+</li>
+<li>测试</li>
+</ul>
+<h2 id="相关软件包和工具"><a href="#相关软件包和工具" class="headerlink" title="相关软件包和工具"></a>相关软件包和工具</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://tiddlywiki.com/">TiddlyWiki</a>: 一个非线性个人 wiki;</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/caddyserver/xcaddy">xcaddy</a>: 自定义编译 <code>caddy</code>;</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/caddyserver/caddy">caddy</a>: 反向代理.</li>
+</ul>
+<h2 id="TiddlyWiki"><a href="#TiddlyWiki" class="headerlink" title="TiddlyWiki"></a>TiddlyWiki</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g tiddlywiki</span><br></pre></td></tr></table></figure>
+
+<h3 id="检查版本"><a href="#检查版本" class="headerlink" title="检查版本"></a>检查版本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ tiddlywiki --version</span><br><span class="line">5.2.7</span><br></pre></td></tr></table></figure>
+
+<h3 id="初始化并监听"><a href="#初始化并监听" class="headerlink" title="初始化并监听"></a>初始化并监听</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /path/to/mywiki</span><br><span class="line">tiddlywiki . --init</span><br><span class="line"><span class="comment"># 默认 host=127.0.0.1 port=8080</span></span><br><span class="line">tiddlywiki . --listen</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">tiddlywiki . --listen host=0.0.0.0 port=8081</span><br></pre></td></tr></table></figure>
+
+<p>若在终端中输出了诸如缺少 <code>&quot;tiddlywiki/filesystem&quot;</code>, <code>&quot;tiddlywiki/tiddlyweb&quot;</code> 插件的消息, 请在 <code>/path/to/mywiki</code> 中的 <code>tiddlywiki.info</code> 对应位置添加如下内容:</p>
+<figure class="highlight json"><figcaption><span>tiddlywiki.info</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="attr">&quot;plugins&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;tiddlywiki/filesystem&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;tiddlywiki/tiddlyweb&quot;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line">    ...</span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>随后重新监听.</p>
+<h3 id="配置服务"><a href="#配置服务" class="headerlink" title="配置服务"></a>配置服务</h3><p>为方便控制启动参数, 可以考虑在 <code>/path/to/mywiki</code> 中新建如下的启动脚本 (例如, 命名为 <code>server.sh</code>):</p>
+<figure class="highlight shell"><figcaption><span>server.sh</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/sh</span></span><br><span class="line"></span><br><span class="line">tiddlywiki `dirname $0` --listen $@</span><br></pre></td></tr></table></figure>
+
+<p>并使用 <code>chmod +x server.sh</code> 使其可以被执行.</p>
+<p>确认 TiddlyWiki 可以正常工作后, 新建 <code>/usr/lib/systemd/system/tiddlywiki.service</code> 文件, 添加如下内容:</p>
+<figure class="highlight text"><figcaption><span>tiddlywiki.service</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=A non-linear personal web notebook</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">EnvironmentFile=-/usr/local/etc/tiddlywiki/env</span><br><span class="line">ExecStart=/path/to/mywiki/server.sh</span><br><span class="line">ExecReload=/bin/kill -HUP $MAINPID</span><br><span class="line">Restart=on-failure</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>/usr/local/etc/tiddlywiki/env</code> 是一个环境变量文件, 可以忽略. 后面的操作可以向其添加必要的环境变量.</p>
+<h3 id="统一存储自定义插件"><a href="#统一存储自定义插件" class="headerlink" title="统一存储自定义插件"></a>统一存储自定义插件</h3><p>TiddlyWiki 在 <code>/path/to/mywiki/plugins</code> 文件夹下的插件是不包含命名空间的[^1], 但若要在插件文件夹内以 <code>&lt;命名空间&gt;/&lt;插件名称&gt;</code> 的形式存储, 又不想修改 <code>/usr/local/lib/node_modules/tiddlywiki/plugins</code> 文件夹的内容, 则可以使用环境变量 <code>TIDDLYWIKI_PLUGIN_PATH</code> 指定一个 “额外” 的插件文件夹[^2]. 假设这个文件夹是 <code>/usr/local/share/tiddlywiki/plugins</code>, 那么只需要在 <code>/usr/local/etc/tiddlywiki/env</code> 文件中添加:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TIDDLYWIKI_PLUGIN_PATH=/usr/local/share/tiddlywiki/plugins</span><br></pre></td></tr></table></figure>
+
+<p>这样, 在该文件夹下添加诸如 <code>author/name</code> 的插件, 在 <code>tiddlywiki.info</code> 中即可如同添加官方插件一般在 <code>plugins</code> 数组下添加 <code>&quot;author/name&quot;</code> 字符串即可.</p>
+<h3 id="本章节相关操作涉及到的需要手动更改的文件-夹"><a href="#本章节相关操作涉及到的需要手动更改的文件-夹" class="headerlink" title="本章节相关操作涉及到的需要手动更改的文件 (夹)"></a>本章节相关操作涉及到的需要手动更改的文件 (夹)</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/path/to/mywiki/</span><br><span class="line">/path/to/mywiki/server.sh</span><br><span class="line">/usr/lib/systemd/system/tiddlywiki.service</span><br><span class="line">/usr/local/etc/tiddlywiki/env</span><br><span class="line">/usr/local/share/tiddlywiki/plugins/</span><br></pre></td></tr></table></figure>
+
+<h2 id="Cloudflare"><a href="#Cloudflare" class="headerlink" title="Cloudflare"></a>Cloudflare</h2><h3 id="添加-DNS-记录"><a href="#添加-DNS-记录" class="headerlink" title="添加 DNS 记录"></a>添加 DNS 记录</h3><p>根据实际情况选择 A 记录或 AAAA 记录. Proxy status 选择默认的 “Proxied”.</p>
+<h3 id="申请-API-token"><a href="#申请-API-token" class="headerlink" title="申请 API token"></a>申请 API token</h3><ul>
+<li>右上角子菜单;</li>
+<li>“My profile”;</li>
+<li>左侧 “API Tokens”;</li>
+<li>“Create Token”;</li>
+<li>“Edit zone DNS” 选择 “Use template”;</li>
+<li>“Zone Resources” 下可以选择指定的 zone;</li>
+<li>如果确定服务器的 IP 可以设置 “Client IP Address Filtering”;</li>
+<li>“Continue to summary”;</li>
+<li>复制 API token.<br>[^3]</li>
+</ul>
+<h3 id="设置-SSL-TLS-加密模式"><a href="#设置-SSL-TLS-加密模式" class="headerlink" title="设置 SSL/TLS 加密模式"></a>设置 SSL/TLS 加密模式</h3><ul>
+<li>域名管理页面;</li>
+<li>左侧 “SSL/TLS”;</li>
+<li>子菜单 “Overview”;</li>
+<li>模式选择 “Full” 或者 “Full (strict)”[^4].<br>[^3]</li>
+</ul>
+<h2 id="Caddy"><a href="#Caddy" class="headerlink" title="Caddy"></a>Caddy</h2><p>因为 Cloudflare 的 DNS 记录设置中选择了 “Proxied”, 现在服务器前相当于添加了一个 Cloudflare 的反向代理, 所以 Caddy 默认获取证书使用的 ACME HTTP-01 模式无法使用, 故利用 Caddy 的一个 <a target="_blank" rel="noopener" href="https://github.com/caddy-dns/cloudflare">Cloudflare 模块</a>使用 ACME DNS-01 模式获取证书 - 这个模式通过修改 Cloudflare 上指定域名的 DNS 记录用以验证.[^5] 但由于这个模块本身并不包含在大部分软件包管理器中, 故需要手动编译包含该模块的 Caddy.</p>
+<h3 id="自定义编译"><a href="#自定义编译" class="headerlink" title="自定义编译"></a>自定义编译</h3><p>自定义编译使用了 Caddy 官方推出的 <code>xcaddy</code> 工具. 编译 Caddy 时需要下载大量 Go 模块, 可能会占用较大量磁盘空间.</p>
+<h4 id="安装-xcaddy"><a href="#安装-xcaddy" class="headerlink" title="安装 xcaddy"></a>安装 <code>xcaddy</code></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S xcaddy-bin</span><br></pre></td></tr></table></figure>
+
+<p>[^6]</p>
+<h4 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h4><p>编译时选择临时文件夹 <code>/tmp</code> 作为编译目录.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /tmp</span><br><span class="line">xcaddy build --with github.com/caddy-dns/cloudflare</span><br></pre></td></tr></table></figure>
+
+<p>待编译结束后, 将生成的 <code>caddy</code> 可执行文件复制到诸如 <code>/usr/local/bin</code> 文件夹即可. <strong>注意</strong>环境变量 <code>$PATH</code> 中 <code>/usr/local/bin</code> 的优先级一般高于 <code>/usr/bin</code>, 故如此操作会使自定义编译的 <code>caddy</code> 优先于发行版软件包管理器中安装的版本.</p>
+<h3 id="配置反向代理"><a href="#配置反向代理" class="headerlink" title="配置反向代理"></a>配置反向代理</h3><p>笔者的 <code>/etc/caddy/Caddyfile</code> 中存在如下的配置:</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import /etc/caddy/conf.d/*</span><br></pre></td></tr></table></figure>
+
+<p>因此选择在 <code>/etc/caddy/conf.d/tiddlywiki</code> 的文件中编写:</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;domain&gt;:443 &#123;</span><br><span class="line">    tls &#123;</span><br><span class="line">        dns cloudflare &lt;token&gt;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    reverse_proxy localhost:8080</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上假设 TiddlyWiki 暴露在本地网络的端口为 8080. <code>&lt;domain&gt;</code> 为 <a href="#%E6%B7%BB%E5%8A%A0-dns-%E8%AE%B0%E5%BD%95">“添加 DNS 记录”</a> 小节中设置的域名, <code>&lt;token&gt;</code> 为 <a href="#%E7%94%B3%E8%AF%B7-api-token">“申请 API token”</a> 小节中申请到的 API token.</p>
+<p>随后, 格式化配置文件:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo caddy <span class="built_in">fmt</span> --overwrite /etc/caddy/Caddyfile</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">sudo caddy <span class="built_in">fmt</span> --overwrite /etc/caddy/conf.d/tiddlywiki</span><br></pre></td></tr></table></figure>
+
+<p>此时则可以重启 Caddy 服务检查是否正确配置 Caddy.</p>
+<h3 id="添加-HTTP-basic-auth"><a href="#添加-HTTP-basic-auth" class="headerlink" title="添加 HTTP basic auth"></a>添加 HTTP basic auth</h3><p>HTTP basic auth 的效果简单来说, 会在访问页面的时候提示输入用户名和密码.</p>
+<p>先使用 Caddy 生成哈希后的密码:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">caddy_naiveproxy hash-password --plaintext &lt;plain password&gt;</span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>&lt;plain password&gt;</code> 为明文密码. 随后修改对应的 Caddyfile:</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;domain&gt;:443 &#123;</span><br><span class="line">    ...</span><br><span class="line">    basicauth /* &#123;</span><br><span class="line">        &lt;username&gt; &lt;hashed password&gt;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>&lt;username&gt;</code> 为 HTTP basic auth 中的用户名, <code>&lt;hashed password&gt;</code> 为上一步操作中生成的明文密码的哈希结果.</p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>略.</p>
+<p>[^1]: <a target="_blank" rel="noopener" href="https://tiddlywiki.com/static/PluginFolders.html">https://tiddlywiki.com/static/PluginFolders.html</a>.<br>[^2]: <a target="_blank" rel="noopener" href="https://tiddlywiki.com/static/Environment%2520Variables%2520on%2520Node.js.html">https://tiddlywiki.com/static/Environment%2520Variables%2520on%2520Node.js.html</a>.<br>[^3]: <a target="_blank" rel="noopener" href="https://samjmck.com/en/blog/using-caddy-with-cloudflare/#2-using-a-lets-encrypt-certificate">https://samjmck.com/en/blog/using-caddy-with-cloudflare/#2-using-a-lets-encrypt-certificate</a>.<br>[^4]: 因为以下示例使用 Caddy 自动申请 Let’s Encrypt 证书, 所以选择 “Full (strict)” 也不会被阻断连接.<br>[^5]: <a target="_blank" rel="noopener" href="https://samjmck.com/en/blog/using-caddy-with-cloudflare/#configuration-with-proxy-enabled">https://samjmck.com/en/blog/using-caddy-with-cloudflare/#configuration-with-proxy-enabled</a>.<br>[^6]: <code>xcaddy-bin</code> 的版本可能略旧于 <code>xcaddy</code>, 但前者省略了编译 <code>xcaddy</code> 的过程.</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Arch Linux 安装 TiddlyWiki + 配置服务 + 添加自定义插件 + Cloudflare 代理 + Caddy 反向代理</p><p><a href="https://blog.tamako.work/techdev/arch/tiddlywiki/">https://blog.tamako.work/techdev/arch/tiddlywiki/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>Author</h6><a href="https://blog.tamako.work"><p>LittleYe233</p></a></div></div><div class="level-item is-narrow"><div><h6>Posted on</h6><p>2023-05-12</p></div></div><div class="level-item is-narrow"><div><h6>Updated on</h6><p>2023-05-12</p></div></div><div class="level-item is-narrow"><div><h6>Licensed under</h6><p><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a class="icon" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a><a class="icon" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="recommend-area"><div class="recommend-post"><span class="is-size-6 has-text-grey has-mr-7"># Related Posts</span><br><span>  1.<a class="is-size-6" href="/techdev/arch/um5302ta/" target="_blank" rel="noreferrer">Arch Linux 在 ASUS Zenbook S 13 OLED (UM5302TA) 上的 patch</a><br></span><span>  2.<a class="is-size-6" href="/techdev/gpg-encryption-decryption-validation/" target="_blank" rel="noreferrer">使用 GPG 加密、解密和验证信息</a><br></span><span>  3.<a class="is-size-6" href="/techdev/kotlin/quick-learning/" target="_blank" rel="noreferrer">Kotlin 简要语法快速学习</a><br></span><span>  4.<a class="is-size-6" href="/techdev/arch/wine-galgame/" target="_blank" rel="noreferrer">【Arch Linux】使用 Wine 运行 Galgame</a><br></span><span>  5.<a class="is-size-6" href="/techdev/arch/kernel-compilation/" target="_blank" rel="noreferrer">【Arch Linux】编译安装 AUR 上的 Linux 内核</a><br></span><span>  6.<a class="is-size-6" href="/techdev/arch/localization-simplified-chinese/" target="_blank" rel="noreferrer">【Arch Linux】本地化：简体中文</a><br></span><span>  7.<a class="is-size-6" href="/techdev/arch/installation/" target="_blank" rel="noreferrer">Arch Linux 物理机安装大体思路和部分实现细节（MBR &amp; GPT）</a><br></span></div><div class="recommend-post"><span class="is-size-6 has-text-grey has-mr-7"># Recommend Posts</span><br><span>  1.<a class="is-size-6" href="/acg/ima-aruki-dasu-kimi-e/" target="_blank" rel="noreferrer">【ACG音乐分享】Ceui《今、歩き出す君へ》</a><br></span><span>  2.<a class="is-size-6" href="/techdev/linux-time-operations-and-sync/" target="_blank" rel="noreferrer">Linux 时间操作及其同步</a><br></span><span>  3.<a class="is-size-6" href="/techdev/how-to-write-a-git-commit-message-chs/" target="_blank" rel="noreferrer">【翻译】如何编写 Git 提交消息</a><br></span><span>  4.<a class="is-size-6" href="/techdev/python-cpp-string-find-perf-test/" target="_blank" rel="noreferrer">【实测】Python 和 C++ 下字符串查找的速度对比</a><br></span><span>  5.<a class="is-size-6" href="/acmoi/codeforces/1312b/" target="_blank" rel="noreferrer">Codeforces 1312B: Bogosort</a><br></span><span>  6.<a class="is-size-6" href="/acmoi/codeforces/1368b/" target="_blank" rel="noreferrer">Codeforces 1368B: Codeforces Subsequences</a><br></span></div></div><div class="sharethis-inline-share-buttons"></div><script src="https://platform-api.sharethis.com/js/sharethis.js#property=61f7585fd7b259001917a045&amp;product=inline-share-buttons" defer></script></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/techdev/arch/um5302ta/"><span class="level-item">Arch Linux 在 ASUS Zenbook S 13 OLED (UM5302TA) 上的 patch</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><div class="title is-5">Comments</div><div class="content twikoo" id="twikoo"></div><script src="https://cdn.jsdelivr.net/npm/twikoo@1.6.8/dist/twikoo.all.min.js"></script><script>twikoo.init({
+      envId: 'https://comment.blog.tamako.work',
+      lang: 'zh-CN',
+      el: '#twikoo'
+    });</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">Catalogue</h3><ul class="menu-list"><li><a class="is-flex is-mobile" href="#较详细的本文将覆盖的内容"><span>较详细的本文将覆盖的内容</span></a></li><li><a class="is-flex is-mobile" href="#相关软件包和工具"><span>相关软件包和工具</span></a></li><li><a class="is-flex is-mobile" href="#TiddlyWiki"><span>TiddlyWiki</span></a><ul class="menu-list"><li><a class="is-flex is-mobile" href="#安装"><span>安装</span></a></li><li><a class="is-flex is-mobile" href="#检查版本"><span>检查版本</span></a></li><li><a class="is-flex is-mobile" href="#初始化并监听"><span>初始化并监听</span></a></li><li><a class="is-flex is-mobile" href="#配置服务"><span>配置服务</span></a></li><li><a class="is-flex is-mobile" href="#统一存储自定义插件"><span>统一存储自定义插件</span></a></li><li><a class="is-flex is-mobile" href="#本章节相关操作涉及到的需要手动更改的文件-夹"><span>本章节相关操作涉及到的需要手动更改的文件 (夹)</span></a></li></ul></li><li><a class="is-flex is-mobile" href="#Cloudflare"><span>Cloudflare</span></a><ul class="menu-list"><li><a class="is-flex is-mobile" href="#添加-DNS-记录"><span>添加 DNS 记录</span></a></li><li><a class="is-flex is-mobile" href="#申请-API-token"><span>申请 API token</span></a></li><li><a class="is-flex is-mobile" href="#设置-SSL-TLS-加密模式"><span>设置 SSL/TLS 加密模式</span></a></li></ul></li><li><a class="is-flex is-mobile" href="#Caddy"><span>Caddy</span></a><ul class="menu-list"><li><a class="is-flex is-mobile" href="#自定义编译"><span>自定义编译</span></a><ul class="menu-list"><li><a class="is-flex is-mobile" href="#安装-xcaddy"><span>安装 xcaddy</span></a></li><li><a class="is-flex is-mobile" href="#编译"><span>编译</span></a></li></ul></li><li><a class="is-flex is-mobile" href="#配置反向代理"><span>配置反向代理</span></a></li><li><a class="is-flex is-mobile" href="#添加-HTTP-basic-auth"><span>添加 HTTP basic auth</span></a></li></ul></li><li><a class="is-flex is-mobile" href="#测试"><span>测试</span></a></li></ul></div></div><style>.menu-list > li > a.is-active + .menu-list { display: block; }.menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div><div class="column-right-shadow is-hidden-widescreen"></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="https://s4.ax1x.com/2022/01/22/7hwc6A.png" alt="LittleYe233&#039;s Blog" height="28"></a><p class="size-small"><span>&copy; 2023 LittleYe233</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noreferrer">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noreferrer">Icarus</a> &amp; <a href="https://github.com/LittleYe233/hexo-theme-amazingremake" target="_blank" rel="noreferrer">Amazing-Remake</a> <br><span>© <a href="https://icp.gov.moe/?keyword=20227890" target="_blank" rel="noreferrer">萌ICP备20227890号</a><br></span><span>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a> unless the license is specified in articles<br></span><span><span id="statistic-times">loading...</span><script>function createTime(time) {
+            var n = new Date(time);
+            now.setTime(now.getTime() + 250),
+                days = (now - n) / 1e3 / 60 / 60 / 24,
+                dnum = Math.floor(days),
+                hours = (now - n) / 1e3 / 60 / 60 - 24 * dnum,
+                hnum = Math.floor(hours),
+            1 == String(hnum).length && (hnum = "0" + hnum),
+                minutes = (now - n) / 1e3 / 60 - 1440 * dnum - 60 * hnum,
+                mnum = Math.floor(minutes),
+            1 == String(mnum).length && (mnum = "0" + mnum),
+                seconds = (now - n) / 1e3 - 86400 * dnum - 3600 * hnum - 60 * mnum,
+                snum = Math.round(seconds),
+            1 == String(snum).length && (snum = "0" + snum),
+                document.getElementById("statistic-times").innerHTML = "❤️Site from <strong>"+time.split(" ")[0].replace(/\//g,".")+"</strong> has existed <strong>" + dnum + "</strong> d <strong>" + hnum + "</strong> h <strong>" + mnum + "</strong> m <strong>" + snum + "</strong> s!❤️";
+        }var now = new Date();setInterval("createTime('Sun Jan 23 2022 04:54:43 GMT+0800 (China Standard Time)')", 250,"");</script><br></span><div class="size-small"><span>❤️Thx <strong><span id="busuanzi_value_site_uv">99+</span></strong> users <strong><span id="busuanzi_value_site_pv">99+</span></strong> visited!❤️</span></div></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/LittleYe233/hexo-theme-amazingremake"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdnjs.loli.net/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" async></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    enabled: true,
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/lightgallery/1.10.0/js/lightgallery.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdnjs.loli.net/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script><script type="text/javascript">var pjax = new Pjax({
+            elements: "a",//代表点击链接就更新
+            selectors: [  //代表要更新的节点
+                ".section",
+                "title"
+            ],
+            cache: true,
+            cacheBust:false
+        })
+
+        function loadBusuanzi(){
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js", function () {});
+        }
+
+        function loadMathJax() { // 加载mathjax
+            window.MathJax = {
+                tex: {
+                    inlineMath: [['$', '$']],
+                    autoload: {
+                        color: [],
+                        colorv2: ['color']
+                    },
+                    packages: {'[+]': ['noerrors']}
+                },
+                options: {
+                    ignoreHtmlClass: 'tex2jax_ignore',
+                    processHtmlClass: 'tex2jax_process'
+                },
+                loader: {
+                    load: ['input/asciimath', '[tex]/noerrors']
+                }
+            };
+            $.getScript('//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js');
+        };
+
+        // 开始 PJAX 执行的函数
+        document.addEventListener('pjax:send', function () {
+        });
+        
+        // PJAX 完成之后执行的函数，可以和上面的重载放在一起
+        document.addEventListener('pjax:complete', function () {
+            $(".section").css({opacity:1});
+            if(false){
+                $.getScript('/js/comment-issue-data.js',function(){loadIssueData('undefined','undefined','undefined','undefined',undefined);});
+            }
+            if('katex' === 'mathjax'){
+                loadMathJax();
+            }
+            loadMainJs(jQuery, window.moment, window.ClipboardJS, window.IcarusThemeSettings);
+            loadBackTop();
+            loadBusuanzi();
+            if(typeof loadBanner == 'function'){
+                loadBanner();
+            }
+        });</script></body></html>
