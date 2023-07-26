@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>【文件格式探究】EP.2 WAV 音频文件格式 - LittleYe233&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="LittleYe233&#039;s Blog"><meta name="msapplication-TileImage" content="https://pd.zwc365.com/seturl/https://github.com/LittleYe233.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="LittleYe233&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="“WAV” 全名 “Waveform Audio File Format”, 是一种常见的存储音频信息的文件格式标准, 从其名称上即可看出其存储的是音频的波形信息. 一般 WAV 存储的音频是未压缩的, 且遵循 RIFF 标准来构建文件内容, 相较于其他音频格式省去了解压缩等处理, 复杂度较低. 本文将通过一个真实的 WAV 格式文件示例, 一一说明 WAV 文件格式中各个数据块的含义和位置, 并"><meta property="og:type" content="article"><meta property="og:title" content="【文件格式探究】EP.2 WAV 音频文件格式"><meta property="og:url" content="https://blog.tamako.work/techdev/format/wav/"><meta property="og:site_name" content="LittleYe233&#039;s Blog"><meta property="og:description" content="“WAV” 全名 “Waveform Audio File Format”, 是一种常见的存储音频信息的文件格式标准, 从其名称上即可看出其存储的是音频的波形信息. 一般 WAV 存储的音频是未压缩的, 且遵循 RIFF 标准来构建文件内容, 相较于其他音频格式省去了解压缩等处理, 复杂度较低. 本文将通过一个真实的 WAV 格式文件示例, 一一说明 WAV 文件格式中各个数据块的含义和位置, 并"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://blog.tamako.work/img/og_image.png"><meta property="article:published_time" content="2023-07-15T20:41:45.000Z"><meta property="article:modified_time" content="2023-07-26T12:30:27.000Z"><meta property="article:author" content="LittleYe233"><meta property="article:tag" content="File Format"><meta property="article:tag" content="WAV"><meta property="article:tag" content="Audio"><meta property="article:tag" content="PCM"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://blog.tamako.work/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.tamako.work/techdev/format/wav/"},"headline":"LittleYe233's Blog","image":["https://blog.tamako.work/img/og_image.png"],"datePublished":"2023-07-15T20:41:45.000Z","dateModified":"2023-07-26T12:30:27.000Z","author":{"@type":"Person","name":"LittleYe233"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject"}},"description":"“WAV” 全名 “Waveform Audio File Format”, 是一种常见的存储音频信息的文件格式标准, 从其名称上即可看出其存储的是音频的波形信息. 一般 WAV 存储的音频是未压缩的, 且遵循 RIFF 标准来构建文件内容, 相较于其他音频格式省去了解压缩等处理, 复杂度较低. 本文将通过一个真实的 WAV 格式文件示例, 一一说明 WAV 文件格式中各个数据块的含义和位置, 并"}</script><link rel="canonical" href="https://blog.tamako.work/techdev/format/wav/"><link rel="icon" href="https://pd.zwc365.com/seturl/https://github.com/LittleYe233.png"><meta name="referrer" content="no-referrer-when-downgrade"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.15.2/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css?family=Ubuntu:400,600|Source+Code+Pro|Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext|Inconsolata|Itim|Lobster.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css" integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ" crossorigin="anonymous"><script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY" crossorigin="anonymous"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script><script src="https://cdnjs.loli.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="/js/globalUtils.js"></script><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.10.0/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.8.1/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdnjs.loli.net/ajax/libs/pace/1.2.4/pace.min.js"></script><meta name="follow.it-verification-code" content="rabWfGgzpLXy2LNx46TH"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="LittleYe233's Blog" type="application/atom+xml">
+</head><body class="is-3-column has-navbar-fixed-top"><nav class="navbar navbar-main is-fixed-top"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="https://s4.ax1x.com/2022/01/22/7hwc6A.png" alt="LittleYe233&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a><a class="navbar-item" href="/self-talking">Self-talking</a><a class="navbar-item" href="/music">Music</a><a class="navbar-item" href="/media">Media</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/LittleYe233/hexo-theme-amazingremake"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="Catalogue" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a><a class="navbar-item" id="night-nav" title="Night Mode" href="javascript:;"><i class="fas fa-moon" id="night-icon"></i></a></div></div></div></nav><script type="text/javascript" src="/js/theme-setting.js"></script><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-9-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><i class="far fa-calendar-plus"> </i>2023-07-16  <a class="commentCountImg" href="/techdev/format/wav/#comment-container"><span class="display-none-class">/techdev/format/wav/</span><i class="far fa-comment-dots"></i> <span class="commentCount" id="28b5baa0a5279f0c5f158da8e80d9685">99+</span>  </a><span class="level-item"><i class="far fa-clock"> </i>26 m  <i class="fas fa-pencil-alt"> </i>3.9 k</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>&nbsp;visits</span></div></div><h1 class="title is-3 is-size-4-mobile">【文件格式探究】EP.2 WAV 音频文件格式</h1><div class="content"><p>“WAV” 全名 “Waveform Audio File Format”, 是一种常见的存储音频信息的文件格式标准, 从其名称上即可看出其存储的是音频的波形信息. 一般 WAV 存储的音频是未压缩的, 且遵循 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Resource_Interchange_File_Format">RIFF 标准</a>来构建文件内容, 相较于其他音频格式省去了解压缩等处理, 复杂度较低. 本文将通过一个真实的 WAV 格式文件示例, 一一说明 WAV 文件格式中各个数据块的含义和位置, 并提供简单地读写 WAV 文件的代码实现, 并最终尝试生成自定义波形的 WAV 文件. 本文除涉及 WAV 格式最重要的文件头和数据块之外, 还将讲解 LIST-INFO 元信息格式在 WAV 中的应用.</p>
+<span id="more"></span>
+
+<h2 id="前置知识-音频的数位化表示"><a href="#前置知识-音频的数位化表示" class="headerlink" title="前置知识: 音频的数位化表示"></a>前置知识: 音频的数位化表示</h2><p>声现象的本质是振动. 发声源通过产生人耳可听范围内某一频率的振动, 人耳即可以听到声音. 若将扬声器的表面看作一个富有弹性的平面, 且初始状态静止于零形变处, 那么扬声器在工作时, 可以认为其表面不停地向内或向外产生相对于初始状态的位移 - 这被称为 “振幅”. 扬声器工作时其表面的位移量, 可以看作是一个关于时间的函数.</p>
+<p>上述场景在真实世界中很容易理解, 但在计算机中需要考虑一些很重要的问题, 例如: 计算机存储数据的精度是有限的, 而真实世界中完全可能出现在时间等于 $\pi$ 秒时振幅为 $\sqrt{2}$; 同理, 扬声器的振幅可以为 $1$, 也可以为 $1e10$. 计算机如何存储精度要求极高或如此巨大的数字? 答案很简单: 不存储. 但我们自然希望尽可能精确且全面地记录下这些振幅以及对应的时刻, 这就牵扯到后面提到的 “PCM” (Pulse-code modulation, 脉冲编码调制).</p>
+<h3 id="PCM"><a href="#PCM" class="headerlink" title="PCM"></a>PCM</h3><p>调制可以理解为将输入信号转变为另一个信号的过程. 而在我们上述的场景中, 当我们面对一个信息量巨大且信息精度很高的 “真实世界信号” (或者应该称之为 “模拟信号”) 时, 我们希望通过一种调制方式将其转变为计算机可接受的 “数字信号”. 一种应用相当普遍的调制方式即为 PCM, 它经常用于模数转换.</p>
+<p>简单来说, PCM 是在时域上对模拟信号的时间轴和振幅轴同时做量化处理, 使之可以用一系列有限值来表示. 为方便起见, 本文仅考虑 LPCM (Linear pulse-code modulation) - 一种量化等级线性均匀排布的调制方式. 因为这种调制方式太过常见, 若无特别说明, 以下的 “PCM” 均指代 “LPCM”.</p>
+<p>从数学上来说, 若要将振幅范围 $[0,A]$ 线性映射到一系列量化值 ${0,1,\cdots,N}$, 则对于某一振幅 $x\in[0,A]$, 其将会被量化到 $\mathrm{round}\left(\dfrac{x}{A}N\right)$, 其中 $\mathrm{round}(\cdot)$ 表示四舍五入. 显然 $N$ 决定了我们量化的精度. 较大的 $N$ 对于较大的 $A$ 也可以保持较好的量化效果 (如果不去除这些振幅较大的值), 对于较小的 $A$ 可以使其量化结果更接近于真实值.</p>
+<p>一般来说, 量化范围内能表示的所有整数所需要的比特位数被称为<strong>位深</strong> (bit depth), 常见的位深有 8-bit, 16-bit, 24-bit, 分别表示量化范围内可以表示 $2^8$, $2^{16}$, $2^{24}$ 个连续整数. 实际应用中, 一般 8-bit PCM 的量化范围为 $[0,2^8)$, (或 $[0,256)$) 也就是无符号整数; 而超过这一位深的量化范围 (以 16-bit 为例) 通常表示为 $[-2^{15},2^{15})$ (或 $[-32768,32768)$), 也就是有符号整数. 对于前者, 其零振幅时的量化值为 $2^7$ (或 128); 对于后者, 其零振幅时的量化值为 0.</p>
+<p>此时仍然还有一个需要讨论的问题 - 时间轴如何量化? 一般来说我们仅考虑线性均匀采样, 以一个固定的<strong>采样率</strong> (sample rate). 这是与位深类似的概念 - 显然采样率越高, 采样就越精确, 但这会带来很大的存储和处理成本; 而采样率下降, 甚至可能连模拟信号的频率信息都会丢失 (想象频率为 1Hz 的正弦波以 1Hz 均匀采样, 每次采样的结果都是相同的振幅).</p>
+<p>对于采样率的下限, 在数字信号处理领域有著名的 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Nyquist%E2%80%93Shannon_sampling_theorem">Nyquist-Shannon sampling theorem</a> (奈奎斯特-香农采样定理), 表明采样率应不小于波形最高频率的 2 倍, 才可能保证波形的各个分量的频率信息不丢失. 而根据傅里叶变换, 任何函数都可以分解为不同频率的正余弦函数之和. 因此, 在仅考虑幅度超过一定阈值的频率分量的情况下 (这是考虑到傅里叶变换的结果可能包含无穷多个频率分量, 但一般实际情况高频分量的幅度都很小; 限定幅度阈值后可以认为波形的正余弦分量有最高频率), 任何波形都可以应用这一定理, 从而推得采样率的下限.</p>
+<p>实际上, 在很多场合下, 采样率仅仅超过最高频率的 2 倍是远远不够的. 在工程相关领域, 这个倍数可以达到 6 倍左右. 一般我们接触到的音频文件的采样率多在 44,100Hz, 少数能达到 48,000Hz 或更高. 人耳能听到的振动频率范围在 20Hz~20,000Hz 左右, 显然 44,100Hz 已经超过 Nyquist-Shannon sampling theorem 所要求的采样率下限. 一般音乐的波形频率不会达到如此高的频率. 以 MIDI 能表示的音高为例, 音符事件的音调最大值 127 (对应音高为 G9) 对应的频率约为 12544Hz, 接近于采样率的四分之一.</p>
+<p>对于 PCM 而言, 最重要的两个参数即是上述的<strong>位深</strong>和<strong>采样率</strong>.</p>
+<h2 id="WAV-文件格式的结构"><a href="#WAV-文件格式的结构" class="headerlink" title="WAV 文件格式的结构"></a>WAV 文件格式的结构</h2><p>接下来我们将正式开始讨论 WAV 文件格式是如何构建的. 前文中提到 WAV 格式遵循 RIFF 标准, 因此 WAV 格式本身即是 RIFF 标准中的一个 “RIFF” chunk, 并具有规定的文件头. 除去文件头剩余的文件内容被分为一些 sub-chunk, 例如规定音频格式具体信息的 “fmt “ (注意这里的空格, 很快将知道为什么) sub-chunk 和定义音频波形具体数据的 “data” sub-chunk, 还可能包含 “LIST” 元信息 sub-chunk. 按照 RIFF 标准, “RIFF” 和 “LIST” chunk 的剩余文件内容 (或者也可以理解为这些 chunks 的数据部分) 是其他 sub-chunks, 而 “fmt “ 和 “data” 此类普通的 sub-chunks 的数据部分就是普通的二进制数据流.</p>
+<p>更详细地, 按照 RIFF 标准, 所有的数据都是以 chunk 的形式存储. 这些 chunk 都具有如下的结构:</p>
+<table>
+<thead>
+<tr>
+<th align="center">长度 (字节数)</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">4</td>
+<td align="center">chunk 的 ASCII 标识符 (“RIFF”, “LIST” 等)</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">chunk 的 “数据部分” 的长度</td>
+</tr>
+<tr>
+<td align="center">剩余</td>
+<td align="center">chunk 的 “数据部分”</td>
+</tr>
+</tbody></table>
+<p>其中对于 “RIFF” 和 “LIST” 两种特殊的 chunks, 其 “数据部分” 又可以拆分为:</p>
+<table>
+<thead>
+<tr>
+<th align="center">长度 (字节数)</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">4</td>
+<td align="center">chunk “数据部分” 的 ASCII 标识符<br>(例如 WAV 格式的 “WAVE”, 元信息的 “INFO”)</td>
+</tr>
+<tr>
+<td align="center">剩余</td>
+<td align="center">sub-chunk 1, sub-chunk 2, …</td>
+</tr>
+</tbody></table>
+<p>显然这里的 ASCII 标识符的长度必须为 4 个字节, 因此 “fmt” 后添加了一个空格以填充空隙. 类似的有 AVI 格式的 “RIFF” chunk, 其 “数据部分” 的 ASCII 标识符为 “AVI “, 同样包含一个末尾的空格.</p>
+<p>值得注意的是, 这里涉及到各个 chunk 的不同域 (field), 只有 ASCII 标识符是大端序 (big-endian) 的, 其他的都是小端序 (little-endian). 在后续的例子中我们可以看出这二者的区别.</p>
+<p>以及, 对于某些情况, 整个 chunk 如果长度不为偶数, 通常会加入一个 padding space (以 <code>\x00</code> 填充). 在本文所述的场景中, <code>\x00</code> 被填充在整个 chunk 的末尾, 并<strong>不将其计入整个 chunk 的长度</strong>. 这也会在后续的例子中说明.</p>
+<p>接下来将详细讨论不同的 sub-chunks. 为方便起见, 对于它们我们仍然称为 “chunks”.</p>
+<h3 id="“fmt-“-chunk"><a href="#“fmt-“-chunk" class="headerlink" title="“fmt “ chunk"></a>“fmt “ chunk</h3><p>除去该 chunk 的前 8 个固定字节不谈, 我们仅讨论其 “数据部分” 的结构:</p>
+<table>
+<thead>
+<tr>
+<th align="center">长度 (字节数)</th>
+<th align="center">域名 (field name)</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2</td>
+<td align="center">AudioFormat</td>
+<td align="center">音频格式, 表征普通的 PCM 或压缩处理</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">NumChannels</td>
+<td align="center">频道 (声道) 数</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">SampleRate</td>
+<td align="center">采样率 (单位 Hz)</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">ByteRate</td>
+<td align="center">每秒钟所占字节数</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">BlockAlign</td>
+<td align="center">每个样本在所有频道所占字节数之和</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">BitsPerSample</td>
+<td align="center">位深</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">ExtraParamSize</td>
+<td align="center">(可选) 额外参数长度</td>
+</tr>
+<tr>
+<td align="center">剩余</td>
+<td align="center">ExtraParams</td>
+<td align="center">额外参数</td>
+</tr>
+</tbody></table>
+<p>对于部分 fields 有如下的说明 (以下数字取值均用十进制表示):</p>
+<ul>
+<li>AudioFormat<ul>
+<li>PCM 未压缩: 1</li>
+<li>其他压缩形式: 其他值</li>
+</ul>
+</li>
+<li>NumChannels<ul>
+<li>单声道: 1</li>
+<li>双声道: 2</li>
+<li>7.1 声道: 8</li>
+</ul>
+</li>
+<li>ByteRate: 计算式为 <code>SampleRate * NumChannels * BitsPerSample / 8</code></li>
+<li>BlockAlign: 计算式为 <code>NumChannels * BitsPerSample / 8</code></li>
+</ul>
+<h3 id="“LIST”-chunk-可选"><a href="#“LIST”-chunk-可选" class="headerlink" title="“LIST” chunk (可选)"></a>“LIST” chunk (可选)</h3><p>上文提及该 chunk 是用来记录 WAV 格式的元信息, 诸如歌曲名, 艺术家, 专辑等等. 这些信息存储在下属的 sub-chunks 内, 且原则上都是<strong>可选</strong>的. 需要注意在必要的时候为 chunk 的末尾补 padding space. 以下列举可能出现的 sub-chunk 的标识符及其含义.</p>
+<table>
+<thead>
+<tr>
+<th align="center">标识符</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">INAM</td>
+<td align="center">音频 (track) 标题</td>
+</tr>
+<tr>
+<td align="center">IPRD</td>
+<td align="center">专辑标题</td>
+</tr>
+<tr>
+<td align="center">IART</td>
+<td align="center">创作者</td>
+</tr>
+<tr>
+<td align="center">ICRD</td>
+<td align="center">创作日期 (格式为 “YYYY-MM-DD”, 但通常只会保留年份 “YYYY”)</td>
+</tr>
+<tr>
+<td align="center">ITRK</td>
+<td align="center">音频在专辑中的序号</td>
+</tr>
+<tr>
+<td align="center">ICMT</td>
+<td align="center">注释 (comment) 文本</td>
+</tr>
+<tr>
+<td align="center">IKEY</td>
+<td align="center">工程或文件的关键词</td>
+</tr>
+<tr>
+<td align="center">ISFT</td>
+<td align="center">创建该音频的软件</td>
+</tr>
+<tr>
+<td align="center">IENG</td>
+<td align="center">参与创建该音频的工程师 (engineer). 若有多人则用 <code>;</code> 和半角空格隔开.</td>
+</tr>
+<tr>
+<td align="center">IGNR</td>
+<td align="center">流派</td>
+</tr>
+<tr>
+<td align="center">ICOP</td>
+<td align="center">版权信息</td>
+</tr>
+<tr>
+<td align="center">ISBJ</td>
+<td align="center">主题 (subject)</td>
+</tr>
+<tr>
+<td align="center">ISRC</td>
+<td align="center">提供音频原始主题的人或组织</td>
+</tr>
+</tbody></table>
+<h3 id="“data”-chunk"><a href="#“data”-chunk" class="headerlink" title="“data” chunk"></a>“data” chunk</h3><p>这个 chunk 最终依照时间顺序存储各个样本 (sample) 的 PCM 量化数据. 直接考虑其 “数据部分” - 这是一个 (通常很长的) 连续二进制流. 这个二进制流由诸多 samples 组成, 每个 sample 顺序存储不同声道的数据 (且每个 sample 需要结束在偶数字节位置, 不过对于 16-bit 位深的音频通常一定是满足这个条件的), 而每个声道在该样本下的数据为一个固定比特位数的整数 (这个位数由位深决定). 更具体的解释见后文的示例文件.</p>
+<h2 id="WAV-文件示例"><a href="#WAV-文件示例" class="headerlink" title="WAV 文件示例"></a>WAV 文件示例</h2><p>以下截取<a target="_blank" rel="noopener" href="https://ja.wikipedia.org/wiki/%E3%83%8F%E3%83%AB%E3%82%AB%E3%83%88%E3%83%9F%E3%83%A6%E3%82%AD">ハルカトミユキ</a>的音乐作品<a target="_blank" rel="noopener" href="http://www.iroduku.jp/products/detail.php?p=1&c=2&id=m1">《17才》</a>的一个 WAV 格式音频文件的前 0xead0 (十进制 60,112) 行部分内容, 并以 <code>hexdump</code> 命令的形式呈现.</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">00000000  52 49 46 46 4e 68 e1 02  57 41 56 45 4c 49 53 54  |RIFFNh..WAVELIST|</span><br><span class="line">00000010  90 00 00 00 49 4e 46 4f  49 41 52 54 0f 00 00 00  |....INFOIART....|</span><br><span class="line">00000020  a5 cf a5 eb a5 ab a5 c8  a5 df a5 e6 a5 ad 00 00  |................|</span><br><span class="line">00000030  49 4e 41 4d 05 00 00 00  31 37 b2 c5 00 00 49 50  |INAM....17....IP|</span><br><span class="line">00000040  52 44 16 00 00 00 31 37  b2 c5 20 5b c6 da e9 67  |RD....17.. [...g|</span><br><span class="line">00000050  c9 fa ae 62 cf de b6 a8  b1 50 5d 00 49 47 4e 52  |...b.....P].IGNR|</span><br><span class="line">00000060  14 00 00 00 49 6e 64 69  65 20 2f 20 41 6c 74 65  |....Indie / Alte|</span><br><span class="line">00000070  72 6e 61 74 69 76 65 00  49 54 4f 43 1a 00 00 00  |rnative.ITOC....|</span><br><span class="line">00000080  34 2b 39 36 2b 35 30 44  39 2b 39 31 46 43 2b 44  |4+96+50D9+91FC+D|</span><br><span class="line">00000090  32 45 39 2b 31 31 42 37  34 00 49 54 52 4b 02 00  |2E9+11B74.ITRK..|</span><br><span class="line">000000a0  00 00 31 00 66 6d 74 20  12 00 00 00 01 00 02 00  |..1.fmt ........|</span><br><span class="line">000000b0  44 ac 00 00 10 b1 02 00  04 00 10 00 00 00 64 61  |D.............da|</span><br><span class="line">000000c0  74 61 90 67 e1 02 00 00  00 00 00 00 00 00 00 00  |ta.g............|</span><br><span class="line">000000d0  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|</span><br><span class="line">*</span><br><span class="line">0000ead0  00 00 00 00 00 00 01 00  00 00 00 00 00 00 00 00  |................|</span><br></pre></td></tr></table></figure>
+
+<p>简单说明上述的数据呈现形式: 最左侧的 8 位十六进制数表示该行首个字节在文件中的位置 (offset); 每行中间排列 16 个 2 位十六进制数 (8 位二进制数, 1 个字节); 最右侧是各个对应数据的 ASCII 形式; 大量相同行的数据将会以 <code>*</code> 省略.</p>
+<p>后面我们将要涉及到前文暂按下不表的 “小端序”. 简单来说, 小端序指的是将一个超过 8 位的整数按照字节切分后逆向排列各个部分存储在计算机中的方式. 举例来说, 若一个 32 位整数在计算机中存储为 “01 02 03 04” (忽略方便阅读的空格, 后同), 则该整数的实际值应为 0x04030201. 与之相对, 大端序即是将其顺向排列, 也就是 0x04030201 存储为 “04 03 02 01”.</p>
+<p>接下来, 我们将一一剖析其中的各种信息.</p>
+<h3 id="“RIFF”-chunk-头"><a href="#“RIFF”-chunk-头" class="headerlink" title="“RIFF” chunk 头"></a>“RIFF” chunk 头</h3><p>这可谓是整个小姐最容易分析的部分: 考虑位置 0x0 ~ +8 (表示从 0x0 位置到 0x0+8=0x8 位置, 包含左端点但不包含右端点, 后同), 前 4 个字节是该 chunk 的标识符 “RIFF”, 后 4 个字节表征该文件去除该 chunk 文件头后的字节数. <code>4e 68 e1 02</code> 应该理解为 0x02e1684e, 也即 48326734 (约 46 MiB, 与文件系统显示的大小相符). 位置 0x8 ~ +4 为 “RIFF” chunk 的 “数据部分” 的 ASCII 标识符 “WAVE”.</p>
+<h3 id="“LIST”-chunk-的结构"><a href="#“LIST”-chunk-的结构" class="headerlink" title="“LIST” chunk 的结构"></a>“LIST” chunk 的结构</h3><p>位置 0x12 ~ +12 类似<a href="#riff-chunk-%E5%A4%B4">上一小节</a>. 略去.</p>
+<p>位置 0x24 ~ +24 为 “IART” chunk. “IART” 的 ASCII 标识符略去. 注意到位置 0x28 ~ +4 标示的 chunk “数据部分” 大小为 0x0000000f 也即 15. 位置 0x20 ~ +15 的字节流使用 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/GB_18030">GB18030 编码</a>解码后恰好得到的是 “ハルカトミユキ” (不包含引号, 后同) 附加一个空字符 <code>\x00</code> - 这应该是 CD 在 Windows 平台抓取时平台默认在元信息后增加空白字符所致, 不影响分析; 后续出现类似情况不再赘述. 位置 0x2f 则是 padding space.</p>
+<p>后续 “IPRD”, “IGNR”, “ITOC”, “ITRK” chunks 的分析类似. 另外可以看到 “IPRD” chunk 后即没有 padding space, 符合前文的分析.</p>
+<h3 id="“fmt-“-chunk-的结构"><a href="#“fmt-“-chunk-的结构" class="headerlink" title="“fmt “ chunk 的结构"></a>“fmt “ chunk 的结构</h3><p>相较于其他的 chunks, 这个 chunk 因为连续排布了很多信息, 很容易看错. 这个 chunk 的位置为 0xa4 ~ +26. 略去与前述小节类似的 0xa4 ~ +8 的部分, 直接考虑后续的 18 个字节. 以下以表格形式呈现不同位置的数据及其表达的信息.</p>
+<table>
+<thead>
+<tr>
+<th align="center">位置</th>
+<th align="center">域名 (field name)</th>
+<th align="center">原始数据</th>
+<th align="center">实际<strong>十进制</strong>数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0xac ~ +2</td>
+<td align="center">AudioFormat</td>
+<td align="center"><code>01 00</code></td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">0xae ~ +2</td>
+<td align="center">NumChannels</td>
+<td align="center"><code>02 00</code></td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">0xb0 ~ +4</td>
+<td align="center">SampleRate</td>
+<td align="center"><code>44 ac 00 00</code></td>
+<td align="center">44100</td>
+</tr>
+<tr>
+<td align="center">0xb4 ~ +4</td>
+<td align="center">ByteRate</td>
+<td align="center"><code>10 b1 02 00</code></td>
+<td align="center">176400</td>
+</tr>
+<tr>
+<td align="center">0xb8 ~ +2</td>
+<td align="center">BlockAlign</td>
+<td align="center"><code>04 00</code></td>
+<td align="center">4</td>
+</tr>
+<tr>
+<td align="center">0xba ~ +2</td>
+<td align="center">BitsPerSample</td>
+<td align="center"><code>10 00</code></td>
+<td align="center">16</td>
+</tr>
+<tr>
+<td align="center">0xbc ~ +2</td>
+<td align="center">ExtraParamSize</td>
+<td align="center"><code>00 00</code></td>
+<td align="center">0</td>
+</tr>
+</tbody></table>
+<h3 id="“data”-chunk-的结构"><a href="#“data”-chunk-的结构" class="headerlink" title="“data” chunk 的结构"></a>“data” chunk 的结构</h3><p>从位置 0xbe 开始直至文件末尾都是 “data” chunk. 前 4 个字节同样略去不解释. 这里可以看到位置 0xd0 ~ 0xead0 几乎都全是空字节 <code>\x00</code>, 表示没有音频输出. 0xead0 - 0xd0 为十进制 59,904, 在采样率 44,100Hz 前提下大约为持续 1.4 秒, 符合音乐录音开头空白的通常时长.</p>
+<p>因为原音频文件中很难找到各个 sample 之间差异较大的位置, 我将以虚构的一段 “data” chunk 的 “数据部分” 作解释 (假设位深和声道数不变):</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">01 02 03 04 05 06 07 08</span><br></pre></td></tr></table></figure>
+
+<p>上述 8 个字节总共包含 4 个 samples - <code>01 02</code>, <code>03 04</code>, <code>05 06</code>, <code>07 08</code>. 每个 sample 包含 2 个声道的数据, 以第 1 个 sample 举例则是 <code>01</code> 和 <code>02</code>. 其中第 1 个声道的数据为 <code>01</code>, 表示其 PCM 量化值为十进制的 1.</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><!-- 以下将给出笔者的简单读写 WAV 文件的 Rust 语言实现. 为方便起见, 以下实现并没有做严格的错误处理. -->
+
+<p>待补充.</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>本文大量引用如下网络资源:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/WAV">WAV - Wikipedia</a>.</li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Pulse-code_modulation">Pulse-code modulation - Wikipedia</a>.</li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/a/5891128/12002560">iphone - PCM audio amplitude values? - Stack Overflow</a>.</li>
+<li><a target="_blank" rel="noopener" href="http://blog.ccyg.studio/article/be12c2ee-d47c-4098-9782-ca76da3035e4/">音高和频率的关系</a>.</li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Resource_Interchange_File_Format">Resource Interchange File Format - Wikipedia</a>.</li>
+<li><a target="_blank" rel="noopener" href="http://tiny.systems/software/soundProgrammer/WavFormatDocs.pdf">http://tiny.systems/software/soundProgrammer/WavFormatDocs.pdf</a>.</li>
+<li><a target="_blank" rel="noopener" href="https://www.robotplanet.dk/audio/wav_meta_data/">Wav Meta Data - Audio - RobotPlanet</a>.</li>
+</ul>
+</div><div class="article-licensing box"><div class="licensing-title"><p>【文件格式探究】EP.2 WAV 音频文件格式</p><p><a href="https://blog.tamako.work/techdev/format/wav/">https://blog.tamako.work/techdev/format/wav/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>Author</h6><a href="https://blog.tamako.work"><p>LittleYe233</p></a></div></div><div class="level-item is-narrow"><div><h6>Posted on</h6><p>2023-07-16</p></div></div><div class="level-item is-narrow"><div><h6>Updated on</h6><p>2023-07-26</p></div></div><div class="level-item is-narrow"><div><h6>Licensed under</h6><p><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a class="icon" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a><a class="icon" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="recommend-area"><div class="recommend-post"><span class="is-size-6 has-text-grey has-mr-7"># Related Posts</span><br><span>  1.<a class="is-size-6" href="/acmoi/codeforces/1399d/" target="_blank" rel="noreferrer">Codeforces 1399D: Binary String to Subsequences</a><br></span><span>  2.<a class="is-size-6" href="/acmoi/codeforces/1368b/" target="_blank" rel="noreferrer">Codeforces 1368B: Codeforces Subsequences</a><br></span><span>  3.<a class="is-size-6" href="/acmoi/codeforces/1430c/" target="_blank" rel="noreferrer">Codeforces 1430C: Numbers on Whiteboard</a><br></span><span>  4.<a class="is-size-6" href="/acmoi/codeforces/1419d1/" target="_blank" rel="noreferrer">Codeforces 1419D1: Sage&#039;s Birthday (easy version)</a><br></span><span>  5.<a class="is-size-6" href="/acmoi/codeforces/1312b/" target="_blank" rel="noreferrer">Codeforces 1312B: Bogosort</a><br></span><span>  6.<a class="is-size-6" href="/acmoi/codeforces/1474b/" target="_blank" rel="noreferrer">Codeforces 1474B: Different Divisors</a><br></span><span>  7.<a class="is-size-6" href="/acmoi/codeforces/766a/" target="_blank" rel="noreferrer">Codeforces 766A: Mahmoud and Longest Uncommon Subsequence</a><br></span><span>  8.<a class="is-size-6" href="/acmoi/codeforces/1520c/" target="_blank" rel="noreferrer">Codeforces 1520C: Not Adjacent Matrix</a><br></span></div><div class="recommend-post"><span class="is-size-6 has-text-grey has-mr-7"># Recommend Posts</span><br><span>  1.<a class="is-size-6" href="/acg/ima-aruki-dasu-kimi-e/" target="_blank" rel="noreferrer">【ACG音乐分享】Ceui《今、歩き出す君へ》</a><br></span><span>  2.<a class="is-size-6" href="/techdev/gpg-encryption-decryption-validation/" target="_blank" rel="noreferrer">使用 GPG 加密、解密和验证信息</a><br></span><span>  3.<a class="is-size-6" href="/techdev/how-to-write-a-git-commit-message-chs/" target="_blank" rel="noreferrer">【翻译】如何编写 Git 提交消息</a><br></span><span>  4.<a class="is-size-6" href="/techdev/linux-time-operations-and-sync/" target="_blank" rel="noreferrer">Linux 时间操作及其同步</a><br></span><span>  5.<a class="is-size-6" href="/techdev/python-cpp-string-find-perf-test/" target="_blank" rel="noreferrer">【实测】Python 和 C++ 下字符串查找的速度对比</a><br></span><span>  6.<a class="is-size-6" href="/acmoi/codeforces/1312b/" target="_blank" rel="noreferrer">Codeforces 1312B: Bogosort</a><br></span></div></div><div class="sharethis-inline-share-buttons"></div><script src="https://platform-api.sharethis.com/js/sharethis.js#property=61f7585fd7b259001917a045&amp;product=inline-share-buttons" defer></script></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/techdev/arch/tiddlywiki/"><span class="level-item">Arch Linux 安装 TiddlyWiki + 配置服务 + 添加自定义插件 + Cloudflare 代理 + Caddy 反向代理</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><div class="title is-5">Comments</div><div class="content twikoo" id="twikoo"></div><script src="https://cdn.jsdelivr.net/npm/twikoo@1.6.8/dist/twikoo.all.min.js"></script><script>twikoo.init({
+      envId: 'https://comment.blog.tamako.work',
+      lang: 'zh-CN',
+      el: '#twikoo'
+    });</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">Catalogue</h3><ul class="menu-list"><li><a class="is-flex is-mobile" href="#前置知识-音频的数位化表示"><span>前置知识: 音频的数位化表示</span></a><ul class="menu-list"><li><a class="is-flex is-mobile" href="#PCM"><span>PCM</span></a></li></ul></li><li><a class="is-flex is-mobile" href="#WAV-文件格式的结构"><span>WAV 文件格式的结构</span></a><ul class="menu-list"><li><a class="is-flex is-mobile" href="#“fmt-“-chunk"><span>“fmt “ chunk</span></a></li><li><a class="is-flex is-mobile" href="#“LIST”-chunk-可选"><span>“LIST” chunk (可选)</span></a></li><li><a class="is-flex is-mobile" href="#“data”-chunk"><span>“data” chunk</span></a></li></ul></li><li><a class="is-flex is-mobile" href="#WAV-文件示例"><span>WAV 文件示例</span></a><ul class="menu-list"><li><a class="is-flex is-mobile" href="#“RIFF”-chunk-头"><span>“RIFF” chunk 头</span></a></li><li><a class="is-flex is-mobile" href="#“LIST”-chunk-的结构"><span>“LIST” chunk 的结构</span></a></li><li><a class="is-flex is-mobile" href="#“fmt-“-chunk-的结构"><span>“fmt “ chunk 的结构</span></a></li><li><a class="is-flex is-mobile" href="#“data”-chunk-的结构"><span>“data” chunk 的结构</span></a></li></ul></li><li><a class="is-flex is-mobile" href="#代码实现"><span>代码实现</span></a></li><li><a class="is-flex is-mobile" href="#参考文献"><span>参考文献</span></a></li></ul></div></div><style>.menu-list > li > a.is-active + .menu-list { display: block; }.menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div><div class="column-right-shadow is-hidden-widescreen"></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="https://s4.ax1x.com/2022/01/22/7hwc6A.png" alt="LittleYe233&#039;s Blog" height="28"></a><p class="size-small"><span>&copy; 2023 LittleYe233</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noreferrer">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noreferrer">Icarus</a> &amp; <a href="https://github.com/LittleYe233/hexo-theme-amazingremake" target="_blank" rel="noreferrer">Amazing-Remake</a> <br><span>© <a href="https://icp.gov.moe/?keyword=20227890" target="_blank" rel="noreferrer">萌ICP备20227890号</a><br></span><span>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a> unless the license is specified in articles<br></span><span><span id="statistic-times">loading...</span><script>function createTime(time) {
+            var n = new Date(time);
+            now.setTime(now.getTime() + 250),
+                days = (now - n) / 1e3 / 60 / 60 / 24,
+                dnum = Math.floor(days),
+                hours = (now - n) / 1e3 / 60 / 60 - 24 * dnum,
+                hnum = Math.floor(hours),
+            1 == String(hnum).length && (hnum = "0" + hnum),
+                minutes = (now - n) / 1e3 / 60 - 1440 * dnum - 60 * hnum,
+                mnum = Math.floor(minutes),
+            1 == String(mnum).length && (mnum = "0" + mnum),
+                seconds = (now - n) / 1e3 - 86400 * dnum - 3600 * hnum - 60 * mnum,
+                snum = Math.round(seconds),
+            1 == String(snum).length && (snum = "0" + snum),
+                document.getElementById("statistic-times").innerHTML = "❤️Site from <strong>"+time.split(" ")[0].replace(/\//g,".")+"</strong> has existed <strong>" + dnum + "</strong> d <strong>" + hnum + "</strong> h <strong>" + mnum + "</strong> m <strong>" + snum + "</strong> s!❤️";
+        }var now = new Date();setInterval("createTime('Sun Jan 23 2022 04:54:43 GMT+0800 (China Standard Time)')", 250,"");</script><br></span><div class="size-small"><span>❤️Thx <strong><span id="busuanzi_value_site_uv">99+</span></strong> users <strong><span id="busuanzi_value_site_pv">99+</span></strong> visited!❤️</span></div></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/LittleYe233/hexo-theme-amazingremake"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdnjs.loli.net/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" async></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    enabled: true,
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/lightgallery/1.10.0/js/lightgallery.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdnjs.loli.net/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script><script type="text/javascript">var pjax = new Pjax({
+            elements: "a",//代表点击链接就更新
+            selectors: [  //代表要更新的节点
+                ".section",
+                "title"
+            ],
+            cache: true,
+            cacheBust:false
+        })
+
+        function loadBusuanzi(){
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js", function () {});
+        }
+
+        function loadMathJax() { // 加载mathjax
+            window.MathJax = {
+                tex: {
+                    inlineMath: [['$', '$']],
+                    autoload: {
+                        color: [],
+                        colorv2: ['color']
+                    },
+                    packages: {'[+]': ['noerrors']}
+                },
+                options: {
+                    ignoreHtmlClass: 'tex2jax_ignore',
+                    processHtmlClass: 'tex2jax_process'
+                },
+                loader: {
+                    load: ['input/asciimath', '[tex]/noerrors']
+                }
+            };
+            $.getScript('//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js');
+        };
+
+        // 开始 PJAX 执行的函数
+        document.addEventListener('pjax:send', function () {
+        });
+        
+        // PJAX 完成之后执行的函数，可以和上面的重载放在一起
+        document.addEventListener('pjax:complete', function () {
+            $(".section").css({opacity:1});
+            if(false){
+                $.getScript('/js/comment-issue-data.js',function(){loadIssueData('undefined','undefined','undefined','undefined',undefined);});
+            }
+            if('katex' === 'mathjax'){
+                loadMathJax();
+            }
+            loadMainJs(jQuery, window.moment, window.ClipboardJS, window.IcarusThemeSettings);
+            loadBackTop();
+            loadBusuanzi();
+            if(typeof loadBanner == 'function'){
+                loadBanner();
+            }
+        });</script></body></html>
